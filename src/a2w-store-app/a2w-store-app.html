@@ -8,6 +8,7 @@
 <link rel="import" href="a2w-home.html">
 <link rel="import" href="a2w-global-styles.html">
 <link rel="import" href="a2w-product.html">
+<link rel="import" href="a2w-product-desc.html">
 
 <dom-module id="a2w-store-app">
     <template>
@@ -40,6 +41,7 @@
         <iron-pages selected="[[routeData.view]]" attr-for-selected="name">
             <a2w-home name="home" route="{{subroute}}"></a2w-home>
             <a2w-product name="products" route="{{subroute}}"></a2w-product>
+            <a2w-product-desc name="product-desc" route="{{subroute}}"></a2w-product-desc>
             <!-- <shopping-login on-wall-loggedin="_handleLogin" name="login" route="{{subroute}}"></shopping-login> -->
             <!-- <shopping-main id="wall" name="wall" route="{{subroute}}"></shopping-main> -->
         </iron-pages>
@@ -63,8 +65,9 @@
 
             ready() {
                 super.ready();
-                this.set('route.path', '/home');
+                // this.set('route.path', '/home');
                 // this.set('route.path', '/products');
+                this.set('route.path', '/product-desc');
             }
 
           /*_myFunction(e) {
