@@ -1,0 +1,122 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/smart-client/smart-config.html">
+<link rel="import" href="../../bower_components/smart-client/smart-security.html">
+<link rel="import" href="../../bower_components/smart-client/smart-client.html">
+<link rel="import" href="../../bower_components/workspace-components/login-smart/login-smart.html">
+<link rel="import" href="../shopping-site-global-styles.html">
+
+<dom-module id="shopping-login">
+  <template>
+    <style is="custom-style" include="iron-flex iron-positioning iron-flex-alignment a2w-global-styles">
+        :host {
+            display: block;
+            @apply(--paper-font-common-base);
+        }
+
+        .login-card {
+            width: 500px;
+            height: 300px;
+            top: -150px;
+        }
+
+        .card-container {
+            height: 100vh;
+            width: 100%;
+        }
+
+        .left-description {
+            width: 100%;
+            height: 50vh;
+            background-color: black; 
+            color: #0094DA;
+        }
+
+        .left-image {
+            width: 100%;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        .right-login {
+            width: 100%;
+            height: 50vh;
+        }
+
+        .description-text {
+            color: #FFFFFF;
+            font-size: 18px;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        h1 {
+            color: #FFFFFF;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        .title-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 6px;
+        }
+    </style>
+
+    <div class="vertical layout center-justified card-container">
+        <div class="horizontal layout center-justified left-description">
+            <div class="vertical layout center-justified">
+                <img src="src/images/Untitled.png" class="left-image"/>
+            </div>
+        </div>
+        <div class="horizontal layout center-justified right-login">
+            <div class="vertical layout">
+                <paper-card class="login-card" heading="Login">
+                    <div class="card-content">
+                        <login-smart on-login-success="_onLogin"></login-smart>
+                    </div>
+                </paper-card>
+            </div>
+        </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ShoppingLogin extends Polymer.Element {
+      static get is() { return 'shopping-login'; }
+      static get properties() {
+        return {
+          selectedPage: {
+            type: String,
+            value: "shopping-login"
+          },
+        };
+      }
+
+      constructor() {
+          super();
+      }
+
+      ready() {
+          super.ready();
+      }
+
+      _onLogin(event) {
+          console.log("entered");
+          this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': event.detail.user }}));
+      }
+
+    }
+
+    window.customElements.define(ShoppingLogin.is, ShoppingLogin);
+  </script>
+</dom-module>

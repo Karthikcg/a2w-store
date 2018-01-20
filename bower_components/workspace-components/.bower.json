@@ -1,0 +1,14 @@
+{
+  "name": "workspace-components",
+  "homepage": "https://github.com/rajsanka/workspace-components",
+  "version": "0.0.2",
+  "_release": "0.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.2",
+    "commit": "98ee732d24edf7597ac2f81db2c993e610bbe1ce"
+  },
+  "_source": "git://github.com/rajsanka/workspace-components.git",
+  "_target": "^0.0.2",
+  "_originalSource": "rajsanka/workspace-components"
+}

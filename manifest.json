@@ -1,0 +1,6 @@
+{
+  "name": "a2w-store",
+  "short_name": "a2w-store",
+  "start_url": "/",
+  "display": "standalone"
+}

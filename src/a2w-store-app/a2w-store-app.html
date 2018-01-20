@@ -1,0 +1,83 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/custom-style.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/iron-meta/iron-meta.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/smart-client/smart-config.html">
+<link rel="import" href="a2w-home.html">
+<link rel="import" href="a2w-global-styles.html">
+<link rel="import" href="a2w-product.html">
+
+<dom-module id="a2w-store-app">
+  <template>
+    <style include="a2w-global-styles">
+      :host {
+        display: block;
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-weight: 100;
+        background-color: #f2f2f2;
+        width: 100%;
+        height: 100vh;
+
+        --paper-input-container-input: {
+            font-size: 18px;
+            height: 24px;
+        };
+      }
+    </style>
+    <smart-config id="globals" server="139.59.34.242" port="9081" tenant="a2w"></smart-config>
+    <app-location route="{{route}}"></app-location>
+    <app-route
+            route="{{route}}"
+            pattern="/:view"
+            data="{{routeData}}"
+            tail="{{subroute}}"></app-route>
+
+    <iron-pages selected="[[routeData.view]]" attr-for-selected="name">
+        <a2w-home name="home" route="{{subroute}}"></a2w-home>
+        <a2w-product name="products" route="{{subroute}}"></a2w-product>
+        <!-- <shopping-login on-wall-loggedin="_handleLogin" name="login" route="{{subroute}}"></shopping-login> -->
+        <!-- <shopping-main id="wall" name="wall" route="{{subroute}}"></shopping-main> -->
+    </iron-pages>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class A2wStoreApp extends Polymer.Element {
+      static get is() { return 'a2w-store-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'a2w-store-app'
+          }
+        };
+      }
+
+      ready() {
+        super.ready();
+        this.set('route.path', '/home');
+        // this.set('route.path', '/products');
+      }
+
+      /*_myFunction(e) {
+        alert(e.model.category.name);
+        this.set('route.path', '/products');
+        this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
+      }*/
+
+      /*_handleLogin() {
+          this.$.wall.setupData();
+          this.set('route.path', '/wall');
+      }*/
+    }
+
+    window.customElements.define(A2wStoreApp.is, A2wStoreApp);
+  </script>
+</dom-module>

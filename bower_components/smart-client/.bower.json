@@ -1,0 +1,26 @@
+{
+  "name": "smart-client",
+  "description": "connects to smart server and retrieves data",
+  "main": "smart-client.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "iron-ajax": "^1.4.3"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/rajsanka/smart-client",
+  "version": "0.0.2",
+  "_release": "0.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.2",
+    "commit": "58ea0c127097ea7c211f8b70f85b99845fbaa8fe"
+  },
+  "_source": "https://github.com/rajsanka/smart-client.git",
+  "_target": "^0.0.2",
+  "_originalSource": "rajsanka/smart-client"
+}

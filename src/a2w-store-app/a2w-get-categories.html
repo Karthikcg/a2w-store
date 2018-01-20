@@ -1,0 +1,99 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/smart-client/smart-client.html">
+
+<dom-module id="a2w-get-categories">
+  <template>
+      <smart-client id="client" flow="WallFlow" flow-event="{{_postEvent}}" on-smart-network-error="_handleError" on-smart-error="_handleError" on-smart-response="_handleResponse" ></smart-client>
+  </template>
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+
+    //var retrieved = false;
+    var categories = [];
+    var promotes = [];
+
+    class A2wGetCategories extends Polymer.Element {
+      static get is() { return 'a2w-get-categories'; }
+      static get properties() {
+        return {
+          _postEvent: {
+              type: String,
+              value: "GetVisitorMessages"
+          }
+        };
+      }
+
+      constructor() {
+          super();
+      }
+
+      ready() {
+          super.ready();
+      }
+
+      _handleError(e) {
+          var response = "";
+          if (e.detail.responses != undefined) {
+            response = e.detail.responses[0];
+          } else if (e.detail.error != undefined) {
+              response = e.detail.error;
+          }
+          this.dispatchEvent(new CustomEvent('category-error', { detail: { 'error': response }}));
+      }
+
+      _handleResponse(e) {
+        var response = e.detail.responses[0];
+        categories = response["messages"];
+        this.dispatchEvent(new CustomEvent("categories-retrieved", { detail: { "categories" : categories }}));
+      }
+
+      getCategories() {
+      		var search = {};
+            var postData = {};
+            var postTo = {};
+            postTo['FlowAdmin'] = "WallFlow";
+            search.messageType = "category";
+            postData['search'] = search;
+            postData['page'] = 1;
+            postData['pageSize'] = 20;
+            //TODO later
+            // postData['sortBy'] = '';
+            this.$.client.postSmart(postTo, postData);
+      }
+
+      getProducts(category) {
+      		var search = {};
+            var postData = {};
+            var postTo = {};
+            postTo['FlowAdmin'] = "WallFlow";
+            search.category = "shirts";
+            search.messageType = "catalog";
+            postData['search'] = search;
+            postData['page'] = 1;
+            postData['pageSize'] = 20;
+            //TODO later
+            // postData['sortBy'] = '';
+            this.$.client.postSmart(postTo, postData);
+      }
+
+      getReadCategories() {
+          return categories;
+      }
+
+      /*getPromoteFor(category) {
+          for (var i = 0; i < categories.length; i++) {
+              if (categories[i] == category) {
+                  return promotes[i];
+              }
+          }
+
+          return "Training";
+      }*/
+    }
+
+    window.customElements.define(A2wGetCategories.is, A2wGetCategories);
+  </script>
+</dom-module>
