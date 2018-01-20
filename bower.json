@@ -19,7 +19,9 @@
     "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^2.0.0",
     "iron-icons": "PolymerElements/iron-icons#^2.0.1",
     "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0",
-    "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0"
+    "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.1",
+    "paper-listbox": "PolymerElements/paper-listbox#^2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
