@@ -3,9 +3,10 @@
 <link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html">
-<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html"> 
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-styles/color.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
@@ -323,13 +324,15 @@
                                 <paper-radio-button name="b">L</paper-radio-button>
                                 <paper-radio-button name="e">XL</paper-radio-button>
                             </paper-radio-group> -->
-                            <paper-dropdown-menu label="Dinosaurs">
-                              <paper-listbox slot="dropdown-content" selected="1">
-                                <paper-item>allosaurus</paper-item>
-                                <paper-item>brontosaurus</paper-item>
-                                <paper-item>carcharodontosaurus</paper-item>
-                                <paper-item>diplodocus</paper-item>
-                              </paper-listbox>
+                            <paper-dropdown-menu label="Select a size">
+                                <paper-listbox slot="dropdown-content" attr-for-selected="value" class="dropdown-content" selected="1">
+                                    <paper-item>Select</paper-item>
+                                    <paper-item value="xs">XS</paper-item>
+                                    <paper-item value="s">S</paper-item>
+                                    <paper-item value="s">M</paper-item>
+                                    <paper-item value="l">L</paper-item>
+                                    <paper-item value="xl">XL</paper-item>
+                                </paper-listbox>
                             </paper-dropdown-menu>
                         </div>
                         <div>
