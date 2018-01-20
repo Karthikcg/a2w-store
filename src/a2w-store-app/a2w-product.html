@@ -15,8 +15,8 @@
 <link rel="import" href="../../bower_components/smart-client/smart-client.html">
 <link rel="import" href="../../bower_components/workspace-components/login-smart/login-smart.html">
 <link rel="import" href="a2w-global-styles.html">
-<link rel="import" href="a2w-get-products.html">
-<link rel="import" href="a2w-get-categories.html">
+<link rel="import" href="a2w-get-products.html"><!-- 
+<link rel="import" href="a2w-get-categories.html"> -->
 
 <dom-module id="a2w-product">
 
@@ -182,6 +182,8 @@
         pattern="/:category"
         data="{{routeData}}"></app-route>
 
+        
+
         <paper-scroll-header-panel fixed>
 
             <paper-toolbar slot="header">
@@ -196,7 +198,7 @@
 
             <div slot="content" class="content">
                 <ul class="app-grid grid bg-white">
-                    <!-- <template is="dom-repeat" items="[[products]]" observe="#" as="product">  -->
+                    <template is="dom-repeat" items="[[products]]" observe="#" as="product"> 
                         <li class="item">
                             <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
                             <div>
@@ -204,7 +206,7 @@
                                     <div class="card-content">
                                         <div class="text">
                                             <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
-                                            <paper-item class="navItem"  on-click="_myFunction">$50.20</paper-item>
+                                            <paper-item class="navItem"  on-click="_myFunction">$[[product.cost]]</paper-item>
                                         </div>
                                     </div>
                                 </paper-card>
@@ -249,7 +251,7 @@
                                 </paper-card>
                             </div>
                         </li>
-                    <!-- </template> -->
+                    </template>
                 </ul>
             </div>
 
@@ -264,8 +266,8 @@
             </footer>
         <!-- </app-layout> -->
 
-
         <a2w-get-products id="getproducts" on-products-retrieved="_handleProducts"></a2w-get-products>
+        
         
         <!-- <footer class="container-fluid text-center">
 
@@ -281,6 +283,7 @@
     </template>
 
     <script>
+
         /**
          * @customElement
          * @polymer
@@ -291,7 +294,7 @@
                 return {
                     selectedPage: {
                         type: String,
-                        value: "a2w-product"
+                        value: "products"
                     }
                 };
             }
@@ -302,10 +305,10 @@
 
             ready() {
                 super.ready();
-                this.setupData(this.category)
+                // this.setupProduct(this.category);
             }
 
-            setupData(category) {
+            setupProduct(category) {
                 this.$.getproducts.getProducts(category);
             }
 
@@ -313,10 +316,10 @@
                 this.products = event.detail.products;
             }
 
-            _onLogin(event) {
+            /*_onLogin(event) {
                 console.log("entered");
                 this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': event.detail.user }}));
-            }
+            }*/
         }
 
         window.customElements.define(A2WProduct.is, A2WProduct);

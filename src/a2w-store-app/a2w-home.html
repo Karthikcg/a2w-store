@@ -247,7 +247,7 @@
                                 <paper-card heading="" class="product-img" image="src/images/img1.jpg" alt="Category image">
                                     <div class="card-content overlay">
                                         <div class="text">
-                                            <a href$="/products/[[category.name]]" class="navItem" ><paper-item class="navItem" >[[category.name]]</paper-item></a>
+                                            <!-- <a href$="/products/[[category.name]]" class="navItem" > --><paper-item class="navItem" on-click="_myFunction" >[[category.name]]</paper-item><!-- </a> -->
                                         </div>
                                     </div>
                                 </paper-card>
@@ -401,14 +401,14 @@
                 }
             };
         }
-        
+
         constructor() {
             super();
         }
 
         ready() {
             super.ready();
-            this.setupData()
+            this.setupData();
         }
 
         setupData() {
@@ -425,13 +425,15 @@
         }
 
         _myFunction(e) {
+            this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
+            // setupProduct
             // alert(e.model.category.name);
             // document.querySelector("main-window").set('route.path', "/products");
             /*this.fire("requestChangeRoute", {
                 route: "/products"
             });*/
-            this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
-            /*$.set('route.path', '/products');*/
+            // this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
+            // $.set('route.path', '/products');
             // Load page import on demand. Show 404 page if fails
             /*var resolvedPageUrl = this.resolveUrl('/products');
             Polymer.importHref(
