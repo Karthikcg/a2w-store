@@ -2,6 +2,11 @@
 <link rel="import" href="../../bower_components/polymer/lib/elements/custom-style.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/helpers/helpers.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-meta/iron-meta.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/smart-client/smart-config.html">
@@ -22,12 +27,30 @@
                 background-color: #f2f2f2;
                 width: 100%;
                 height: 100vh;
+                --app-primary-color: #fff;
+                --app-secondary-color: #757575;
+                --app-accent-color: #fff;
+                --paper-button-ink-color: var(--app-accent-color);
+                --paper-icon-button-ink-color: var(--app-accent-color);
+                --paper-spinner-color: var(--app-accent-color);
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                color: var(--app-primary-color);
 
                 --paper-input-container-input: {
                     font-size: 18px;
                     height: 24px;
                 };
             }
+            app-header {
+                @apply --layout-fixed-top;
+                z-index: 1;
+                background-color: #222;
+                --app-header-shadow: {
+                box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.2);
+                height: 10px;
+                bottom: -10px;
+                };
+              }
         </style>
         <smart-config id="globals" server="139.59.34.242" port="9081" tenant="a2w"></smart-config>
 
@@ -42,11 +65,29 @@
             pattern="/:id"
             data="{{subrouteData}}">
         </app-route> -->
+        <!-- <app-header-layout fullbleed> -->
+            <app-header reveals>
+                <app-toolbar>
+                    <!-- <paper-icon-button icon="menu" onclick="drawer.toggle()"></paper-icon-button> -->
+                    <div main-title>
+                        <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
+                    </div>
+                    <paper-icon-button icon="delete"></paper-icon-button>
+                    <div slot="top" class="">Login</div>
+                    <paper-icon-button icon="shopping-cart"></paper-icon-button>
+                    <paper-icon-button icon="close"></paper-icon-button>
+
+                    <!-- <paper-progress value="10" indeterminate bottom-item></paper-progress> -->
+                </app-toolbar>
+            </app-header>
+        <!-- </app-header-layout> -->
+
+
         <iron-pages selected="[[routeData.view]]" attr-for-selected="name">
 
-            <a2w-home on-category-click="_handleCategory" name="home" route="{{subroute}}"></a2w-home>
+            <!-- <a2w-home on-category-click="_handleCategory" name="home" route="{{subroute}}"></a2w-home>
             <a2w-product id="products" name="products" route="{{subroute}}"></a2w-product>
-            <a2w-product-desc name="product-desc" route="{{subroute}}"></a2w-product-desc>
+             --><a2w-product-desc name="product-desc" route="{{subroute}}"></a2w-product-desc>
             <!-- <shopping-login on-wall-loggedin="_handleLogin" name="login" route="{{subroute}}"></shopping-login> -->
             <!-- <shopping-main id="wall" name="wall" route="{{subroute}}"></shopping-main> -->
         </iron-pages>
