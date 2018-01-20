@@ -1,9 +1,14 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-grid/app-grid-style.html">
-<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/smart-client/smart-config.html">
 <link rel="import" href="../../bower_components/smart-client/smart-security.html">
@@ -11,15 +16,16 @@
 <link rel="import" href="../../bower_components/workspace-components/login-smart/login-smart.html">
 <link rel="import" href="a2w-global-styles.html">
 <link rel="import" href="a2w-get-products.html">
+<link rel="import" href="a2w-get-categories.html">
 
 <dom-module id="a2w-product">
 
     <template>
-        <style include="a2w-global-styles">
+                <style include="a2w-global-styles">
         :host {
             display: block;
-            --app-grid-columns: 3;
-            --app-grid-item-height: 100px;
+            /*--app-grid-columns: 2;*/
+            /*--app-grid-item-height: 100px;*/
             /*margin: 0;
             padding: 0;
             font-family: 'Roboto', 'Noto', sans-serif;
@@ -32,7 +38,7 @@
                 font-size: 18px;
                 height: 24px;
             };*/
-
+            
             ul {
               padding: 0;
               list-style: none;
@@ -48,14 +54,121 @@
               }
             }
         }
+
+        paper-scroll-header-panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: var(--paper-grey-200, #eee);;
+        }
+        paper-toolbar {
+            /*background-color: var(--google-blue-500, #4285f4);*/
+            background-color: #000;
+        }
+        .app-grid {
+            margin: 0;
+        }
+        /*.overlay {
+            z-index: 1;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #000;
+            background: rgba(0,0,0,0.5);
+            height: 40px;
+            display: block;
+        }
+        .overlay .text {
+            position: absolute;
+            color: white;
+            width: 100%;
+            text-align: center;
+            font-weight: bolder;
+            margin-top:12px;
+        }*/
+        #img {
+            height: 330px;
+            width: 100%;    
+        }
+        footer {
+            height: 52px;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-content {
+            box-sizing: border-box;
+            width: 200px;
+            /* padding: 6px; */
+            margin: 0 auto;
+            background-color: var(--app-primary-color);
+            color: white;
+            text-transform: uppercase;
+        }
+        .footer-content p {
+            text-align: right;
+        }
+        paper-icon-button {
+            --paper-icon-button-ink-color: white;
+        }
+        .spacer {
+            @apply --layout-flex;
+        }
+        .footer-content {
+            @apply --app-grid-expandible-item;   
+        }
+        paper-card.product-img::before {
+            background-color: rgba(0, 0, 0, 0.245); 
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .paper-card:hover .product-img::before {
+            background-color: rgba(0, 0, 0, 0.45);
+        }
+        .paper-card:hover .overlay {
+            background-color: transparent;
+        }
+        .grid li {
+            -webkit-flex: 1 1;
+            flex: 1 1;
+            -webkit-flex-basis: 33%;
+            flex-basis: 33%;
+            /*max-width: 33%;*/
+        } 
+        .bg-white {
+            background-color: #fff;
+        }
+        .card-content {
+            background-color: #fff;
+            text-align: center;
+            color: #000;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        paper-card {
+            box-shadow: none;
+            display: table;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+        .
         </style>
         <style include="app-grid-style">
 
             :host {
-              --app-grid-columns: 2;
-              --app-grid-item-height: 100px;
-            }
+                --app-grid-columns: 3;
+                --app-grid-gutter: 20px ;
+                --app-grid-item-height: 20px;
+                /*--app-grid-expandible-item-columns: 3;*/
+                --app-grid-item-height: 50%;
 
+            }
             ul {
               padding: 0;
               list-style: none;
@@ -70,144 +183,91 @@
                 --app-grid-columns: 1;
               }
             }
-
           </style>
-        <paper-header-panel class="flex">
-            <paper-toolbar slot="header">
-                <div>Hello World!</div>
-            </paper-toolbar>
-        </paper-header-panel>
-        <section>
-           <div class="container">
-                <div class="row mb-40 mt-20">
-                   <div class="col-md-3">
-                        <a href="product-desc.html">
-                            <div class="products-img">
-                                <img src="images/1.jpg" class="img-responsive" />
-                                <div class="product-info">
-                                    <h4 class="product-name">Black shirts</h4>
-                                    <h4 class="product-price">₹ 499</h4>
-                                    <div class="product-offer-desc">
-                                        <span class="">Offers</span>
-                                        <span class="">Buy More, Save More &amp; 2 More</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                   </div>
-                   <div class="col-md-3">
-                        <a href="product-desc.html">
-                            <div class="products-img">
-                                <img src="images/2.jpg" class="img-responsive" />
-                                <div class="product-info">
-                                    <h4 class="product-name">Black shirts</h4>
-                                    <h4 class="product-price">₹ 499</h4>
-                                    <div class="product-offer-desc">
-                                        <span class="">Offers</span>
-                                        <span class="">Buy More, Save More &amp; 2 More</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                   </div>
-                   <div class="col-md-3">
-                        <a href="product-desc.html">
-                            <div class="products-img">
-                                <img src="images/3.jpg" class="img-responsive" />
-                                <div class="product-info">
-                                    <h4 class="product-name">Black shirts</h4>
-                                    <h4 class="product-price">₹ 499</h4>
-                                    <div class="product-offer-desc">
-                                        <span class="">Offers</span>
-                                        <span class="">Buy More, Save More &amp; 2 More</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                   </div>
-                   <div class="col-md-3">
-                        <a href="product-desc.html">
-                            <div class="products-img">
-                                <img src="images/4.jpg" class="img-responsive" />
-                                <div class="product-info">
-                                    <h4 class="product-name">Black shirts</h4>
-                                    <h4 class="product-price">₹ 499</h4>
-                                    <div class="product-offer-desc">
-                                        <span class="">Offers</span>
-                                        <span class="">Buy More, Save More &amp; 2 More</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                   </div>
-                </div>
-                <div class="row">
-                   <div class="col-md-3">
-                        <a href="product-desc.html">
-                        <div class="products-img">
-                            <img src="images/4.jpg" class="img-responsive" />
-                            <div class="product-info">
-                                <h4 class="product-name">Black shirts</h4>
-                                <h4 class="product-price">₹ 499</h4>
-                                <div class="product-offer-desc">
-                                    <span class="">Offers</span>
-                                    <span class="">Buy More, Save More &amp; 2 More</span>
-                                </div>
-                            </div>
-                        </div>
-                   </div>
-                   <div class="col-md-3">
-                        <a href="product-desc.html">
-                            <div class="products-img">
-                                <img src="images/1.jpg" class="img-responsive" />
-                                <div class="product-info">
-                                    <h4 class="product-name">Black shirts</h4>
-                                    <h4 class="product-price">₹ 499</h4>
-                                    <div class="product-offer-desc">
-                                        <span class="">Offers</span>
-                                        <span class="">Buy More, Save More &amp; 2 More</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                   </div>
-                   <div class="col-md-3">
-                        <a href="product-desc.html">
-                            <div class="products-img">
-                                <img src="images/2.jpg" class="img-responsive" />
-                                <div class="product-info">
-                                    <h4 class="product-name">Black shirts</h4>
-                                    <h4 class="product-price">₹ 499</h4>
-                                    <div class="product-offer-desc">
-                                        <span class="">Offers</span>
-                                        <span class="">Buy More, Save More &amp; 2 More</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                   </div>
-                   <div class="col-md-3">
-                        <a href="product-desc.html">
-                            <div class="products-img">
-                                <img src="images/3.jpg" class="img-responsive" />
-                                <div class="product-info">
-                                    <h4 class="product-name">Black shirts</h4>
-                                    <h4 class="product-price">₹ 499</h4>
-                                    <div class="product-offer-desc">
-                                        <span class="">Offers</span>
-                                        <span class="">Buy More, Save More &amp; 2 More</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                   </div>
-                </div>
-           </div>
-        </section>
 
-        <!-- <a2w-get-categories id="getproducts" on-products-retrieved="_handleProducts"></a2w-get-categories> -->
-        <a2w-get-categories id="getproducts" on-category-click="_handleProducts"></a2w-get-categories>
-        <footer class="container-fluid text-center">
+        <paper-scroll-header-panel fixed>
+
+            <paper-toolbar slot="header">
+                <!-- <paper-icon-button slot="top" icon="arrow-back"></paper-icon-button> -->
+                <div slot="top" class="spacer">
+                    <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
+                </div>
+                <div slot="top" class="">Login</div>
+                <paper-icon-button slot="top" icon="shopping-cart"></paper-icon-button>
+            </paper-toolbar>
+
+            <div slot="content" class="content">
+                <ul class="app-grid grid bg-white">
+<!--                <template is="dom-repeat" items="[[categories]]" observe="#" as="category">-->                        <li class="item">
+                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
+                            <div>
+                                <paper-card heading="" class="product-img" image="src/images/tshirt.jpg" alt="Category image">
+                                    <div class="card-content">
+                                        <div class="text">
+                                            <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
+                                            <paper-item class="navItem"  on-click="_myFunction">$50.20</paper-item>
+                                        </div>
+                                    </div>
+                                </paper-card>
+                            </div>
+                        </li>
+                        <li class="item">
+                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
+                            <div>
+                                <paper-card heading="" class="product-img" image="src/images/tshirt.jpg" alt="Category image">
+                                    <div class="card-content">
+                                        <div class="text">
+                                            <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
+                                            <paper-item class="navItem"  on-click="_myFunction">$50.20</paper-item>
+                                        </div>
+                                    </div>
+                                </paper-card>
+                            </div>
+                        </li>
+                        <li class="item">
+                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
+                            <div>
+                                <paper-card heading="" class="product-img" image="src/images/tshirt2.jpg" alt="Category image">
+                                    <div class="card-content">
+                                        <div class="">
+                                            <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
+                                            <paper-item class="navItem"  on-click="_myFunction">$50.20</paper-item>
+                                        </div>
+                                    </div>
+                                </paper-card>
+                            </div>
+                        </li>
+                        <li class="item">
+                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
+                            <div>
+                                <paper-card heading="" class="product-img" image="src/images/tshirt2.jpg" alt="Category image">
+                                    <div class="card-content">
+                                        <div class="">
+                                            <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
+                                            <paper-item class="navItem"  on-click="_myFunction">$50.20</paper-item>
+                                        </div>
+                                    </div>
+                                </paper-card>
+                            </div>
+                        </li>
+                    <!-- </template> -->
+                </ul>
+            </div>
+
+        </paper-scroll-header-panel>
+
+        <!-- <app-layout> -->
+            <footer class="">
+                <div class="footer-content">
+                    <p>Powered by iOrbit</p>
+                </div>
+            </footer>
+        <!-- </app-layout> -->
+
+        <a2w-get-categories id="getproducts" on-products-retrieved="_handleProducts"></a2w-get-categories>
+        <!-- <a2w-get-categories id="getproducts" on-category-click="_handleProducts"></a2w-get-categories> -->
+        
+        <!-- <footer class="container-fluid text-center">
             <div class="container">
                 <div class="col-md-8">
                     
@@ -216,7 +276,7 @@
                     <p>Powered by iOrbit</p>
                 </div>
             </div>
-        </footer>
+        </footer> -->
     </template>
 
     <script>

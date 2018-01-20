@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
@@ -8,15 +7,10 @@
 <link rel="import" href="../../bower_components/paper-styles/color.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/app-layout/app-grid/app-grid-style.html">
-<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
-<link rel="import" href="../../bower_components/smart-client/smart-config.html">
-<link rel="import" href="../../bower_components/smart-client/smart-security.html">
-<link rel="import" href="../../bower_components/smart-client/smart-client.html">
-<link rel="import" href="../../bower_components/workspace-components/login-smart/login-smart.html">
 <link rel="import" href="a2w-global-styles.html">
 <link rel="import" href="a2w-get-categories.html">
 
-<dom-module id="a2w-home">
+<dom-module id="a2w-header">
 
     <template>
         <style include="a2w-global-styles">
@@ -90,19 +84,12 @@
         #img {
             height: 330px;
             width: 100%;    
-        }footer {
-            height: 52px;
-            padding: 0;
-            margin: 0;
         }
         .footer-content {
-            box-sizing: border-box;
-            width: 200px;
-            /* padding: 6px; */
-            margin: 0 auto;
-            background-color: var(--app-primary-color);
-            color: white;
-            text-transform: uppercase;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 5px;
         }
         .footer-content p {
             text-align: right;
@@ -227,7 +214,6 @@
        <!--  <template> -->
 
         <paper-scroll-header-panel fixed>
-
             <paper-toolbar slot="header">
                 <!-- <paper-icon-button slot="top" icon="arrow-back"></paper-icon-button> -->
                 <div slot="top" class="spacer">
@@ -236,46 +222,7 @@
                 <div slot="top" class="">Login</div>
                 <paper-icon-button slot="top" icon="shopping-cart"></paper-icon-button>
             </paper-toolbar>
-
-            <div slot="content" class="content">
-                <ul class="app-grid">
-                    <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
-                        <li class="item">
-                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
-                            <div>
-                                <paper-card heading="" class="product-img" image="src/images/img1.jpg" alt="Category image">
-                                    <div class="card-content overlay">
-                                        <div class="text">
-                                            <paper-item class="navItem"  on-click="_myFunction">[[category.name]]</paper-item>
-                                        </div>
-                                    </div>
-                                </paper-card>
-                            </div>
-                        </li>
-                    </template>
-                </ul>
-                <!-- <ul class="app-grid">
-                    <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
-                        <li class="item">
-                            <paper-card heading="" image="[[category.imageURL]]" alt="Category image">
-                            <paper-card heading="" image="src/images/img2.jpg" alt="Category image">
-                                <div class="card-content overlay">
-                                    <div class="text">
-                                        <paper-item class="navItem"  on-click="_myFunction">[[category.name]]</paper-item>
-                                    </div>
-                                </div>
-                            </paper-card>
-                        </li>
-                    </template>
-                </ul> -->
-                <footer class="">
-                    <div class="footer-content">
-                        <p>Powered by iOrbit</p>
-                    </div>
-                </footer>
-            </div>
-
-            </paper-scroll-header-panel>            
+        </paper-scroll-header-panel>            
         <!-- <ul class="app-grid">
             <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
                 <li class="item">
@@ -358,7 +305,6 @@
                        <div class="message-header flex">[[message.orderedOn]]</div>
                        <div class="message-header">[[order.state]]</div>
                 </paper-item> -->
-        <a2w-get-categories id="getcategories" on-categories-retrieved="_handleCategories"></a2w-get-categories>
 
         <!-- <footer class="container-fluid text-center">
             <div class="container">
@@ -377,22 +323,13 @@
      * @customElement
      * @polymer
      */
-    class A2WHome extends Polymer.Element {
-      static get is() { return 'a2w-home'; }
+    class A2WHeader extends Polymer.Element {
+      static get is() { return 'a2w-header'; }
       static get properties() {
         return {
           selectedPage: {
             type: String,
-            value: "a2w-home"
-          },
-          categories: {
-            type: Array,
-            value: [],
-            notify: true
-          },
-          category_name: {
-              type: String,
-              value: ""
+            value: "a2w-header"
           },
           imageURL: {
               type: String,
@@ -413,55 +350,9 @@
       setupData() {
           this.$.getcategories.getCategories();
       }
-
-      _handleCategories(event){
-        this.categories = event.detail.categories;
-      }
-
-      _onLogin(event) {
-          console.log("entered");
-          this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': event.detail.user }}));
-      }
-
-      _myFunction(e) {
-        alert(e.model.category.name);
-        /*this.fire("requestChangeRoute", {
-            route: "/products"
-        });*/
-        this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
-        $.set('route.path', '/products');
-        // Load page import on demand. Show 404 page if fails
-        /*var resolvedPageUrl = this.resolveUrl('/products');
-        Polymer.importHref(
-            resolvedPageUrl,
-            null,
-            this._showPage404.bind(this),
-            true);*/
-        // console.log('You pressed button ' + e.model.category.name);
-     }
-
-     /*_showPage404() {
-        console.log('not-found');
-      }*/
-
     }
 
-    window.customElements.define(A2WHome.is, A2WHome);
+    window.customElements.define(A2WHeader.is, A2WHeader);
   </script>
     
 </dom-module>
-
-    <!-- <footer class="container-fluid text-center">
-        <div class="container">
-            <div class="col-md-8">
-                
-            </div>
-            <div class="col-md-4">
-                <p>Powered by MANA GROUP – © 2018</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
- -->
