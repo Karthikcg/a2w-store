@@ -15,11 +15,12 @@
 <dom-module id="a2w-product">
 
     <template>
+        
         <style include="a2w-global-styles">
         :host {
             display: block;
-            --app-grid-columns: 3;
-            --app-grid-item-height: 100px;
+            /*--app-grid-columns: 2;*/
+            /*--app-grid-item-height: 100px;*/
             /*margin: 0;
             padding: 0;
             font-family: 'Roboto', 'Noto', sans-serif;
@@ -32,7 +33,7 @@
                 font-size: 18px;
                 height: 24px;
             };*/
-
+            
             ul {
               padding: 0;
               list-style: none;
@@ -48,6 +49,137 @@
               }
             }
         }
+
+        paper-scroll-header-panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: var(--paper-grey-200, #eee);;
+        }
+        paper-toolbar {
+            /*background-color: var(--google-blue-500, #4285f4);*/
+            background-color: #000;
+        }
+        .app-grid {
+            margin: 0;
+        }
+        .overlay {
+            z-index: 1;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #000;
+            background: rgba(0,0,0,0.5);
+            height: 40px;
+            display: block;
+        }
+        .overlay .text {
+            position: absolute;
+            color: white;
+            width: 100%;
+            text-align: center;
+            font-weight: bolder;
+            margin-top:12px;
+        }
+        #img {
+            height: 330px;
+            width: 100%;    
+        }
+        .footer-content {
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 5px;
+        }
+        .footer-content p {
+            text-align: right;
+        }
+        paper-icon-button {
+            --paper-icon-button-ink-color: white;
+        }
+        .spacer {
+            @apply --layout-flex;
+        }
+        .footer-content {
+            @apply --app-grid-expandible-item;   
+        }
+        paper-card.product-img::before {
+            background-color: rgba(0, 0, 0, 0.245); 
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .paper-card:hover .product-img::before {
+            background-color: rgba(0, 0, 0, 0.45);
+        }
+        .paper-card:hover .overlay {
+            background-color: transparent;
+        }
+        </style>
+        <style include="app-grid-style">
+
+            :host {
+                --app-grid-columns: 2;
+                /*--app-grid-item-height: 360px;*/
+                --app-grid-expandible-item-columns: 1;
+            }
+
+            ul {
+              padding: 0;
+              list-style: none;
+            }
+
+            .item {
+              background-color: white;
+            }
+
+            @media (max-width: 640px) {
+              :host {
+                --app-grid-columns: 1;
+              }
+            }
+          </style>
+        <!-- <style include="a2w-global-styles">
+        :host {
+            display: block;
+            --app-grid-columns: 3;
+            --app-grid-item-height: 100px;
+            
+
+            
+            
+        }
+        </style>
+        <style type="text/css">
+          paper-scroll-header-panel {
+              position: absolute;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              left: 0;
+              background-color: var(--paper-grey-200, #eee);
+            }
+            paper-toolbar {
+              background-color: var(--google-blue-500, #4285f4);
+            }
+            .title {
+              margin: 0 8px;
+            }
+            .content {
+              padding: 8px;
+            }
+            paper-icon-button {
+              --paper-icon-button-ink-color: white;
+            }
+            .spacer {
+              @apply --layout-flex;
+            }
         </style>
         <style include="app-grid-style">
 
@@ -71,13 +203,65 @@
               }
             }
 
-          </style>
-        <paper-header-panel class="flex">
+          </style> -->
+        <!-- <paper-header-panel class="flex">
             <paper-toolbar slot="header">
                 <div>Hello World!</div>
             </paper-toolbar>
-        </paper-header-panel>
-        <section>
+        </paper-header-panel> -->
+
+
+        <paper-scroll-header-panel fixed>
+
+            <paper-toolbar slot="header">
+                <!-- <paper-icon-button slot="top" icon="arrow-back"></paper-icon-button> -->
+                <div slot="top" class="spacer">
+                    <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
+                </div>
+                <div slot="top" class="">Login</div>
+                <paper-icon-button slot="top" icon="shopping-cart"></paper-icon-button>
+            </paper-toolbar>
+
+            <div slot="content" class="content">
+                <ul class="app-grid">
+                    <!-- <template is="dom-repeat" items="[[categories]]" observe="#" as="category"> -->
+                        <li class="item">
+                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
+                            <div>
+                                <paper-card heading="" class="product-img" image="src/images/img1.jpg" alt="Category image">
+                                    <div class="card-content overlay">
+                                        <div class="text">
+                                            <paper-item class="navItem"  on-click="_myFunction">name</paper-item>
+                                        </div>
+                                    </div>
+                                </paper-card>
+                            </div>
+                        </li>
+                    <!-- </template> -->
+                </ul>
+               <!--  <ul class="app-grid">
+                    <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
+                        <li class="item">
+                            <paper-card heading="" image="[[category.imageURL]]" alt="Category image">
+                            <paper-card heading="" image="src/images/img2.jpg" alt="Category image">
+                                <div class="card-content overlay">
+                                    <div class="text">
+                                        <paper-item class="navItem"  on-click="_myFunction">[[category.name]]</paper-item>
+                                    </div>
+                                </div>
+                            </paper-card>
+                        </li>
+                    </template>
+                </ul> -->
+                <footer class="">
+                    <div class="footer-content">
+                        <p>Powered by iOrbit</p>
+                    </div>
+                </footer>
+            </div>
+
+        </paper-scroll-header-panel>
+        <!-- <section>
            <div class="container">
                 <div class="row mb-40 mt-20">
                    <div class="col-md-3">
@@ -204,7 +388,7 @@
                 </div>
            </div>
         </section>
-
+ -->
         <!-- <a2w-get-categories id="getproducts" on-products-retrieved="_handleProducts"></a2w-get-categories> -->
         <a2w-get-categories id="getproducts" on-category-click="_handleProducts"></a2w-get-categories>
         <footer class="container-fluid text-center">
