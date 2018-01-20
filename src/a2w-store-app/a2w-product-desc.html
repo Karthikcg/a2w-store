@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-styles/color.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
@@ -26,245 +27,239 @@
 
     <template>        
         <style include="a2w-global-styles">
-        :host {
-            display: block;
-            /*--app-grid-columns: 2;*/
-            /*--app-grid-item-height: 100px;*/
-            /*margin: 0;
-            padding: 0;
-            font-family: 'Roboto', 'Noto', sans-serif;
-            font-weight: 100;
-            background-color: #f2f2f2;
-            width: 100%;
-            height: 100vh;
-            --paper-input-container-input: {
-                font-size: 18px;
-                height: 24px;
-            };*/
+            :host {
+                display: block;
+                /*--app-grid-columns: 2;*/
+                /*--app-grid-item-height: 100px;*/
+                /*margin: 0;
+                padding: 0;
+                font-family: 'Roboto', 'Noto', sans-serif;
+                font-weight: 100;
+                background-color: #f2f2f2;
+                width: 100%;
+                height: 100vh;
+                --paper-input-container-input: {
+                    font-size: 18px;
+                    height: 24px;
+                };*/
+                
+                ul {
+                  padding: 0;
+                  list-style: none;
+                }
+                .item {
+                  background-color: white;
+                }
+                @media (max-width: 640px) {
+                  :host {
+                    --app-grid-columns: 1;
+                  }
+                }
+            }
+            body {
+                overflow: hidden;
+            }
+            paper-scroll-header-panel {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: var(--paper-grey-200, #eee);;
+            }
+            paper-toolbar {
+                /*background-color: var(--google-blue-500, #4285f4);*/
+                background-color: #000;
+            }
+            .app-grid {
+                margin: 0;
+            }
+            #img {
+                height: 330px;
+                width: 100%;    
+            }
+            footer {
+                height: 50px;
+                padding: 0px 60px;
+                margin: 0;
+            }
+            .footer-content {
+                box-sizing: border-box;
+                float: right;
+            }
+            paper-icon-button {
+                --paper-icon-button-ink-color: white;
+            }
+            .spacer {
+                @apply --layout-flex;
+            }
+            .footer-content {
+                @apply --app-grid-expandible-item;   
+            }
+            paper-card.product-img::before {
+                background-color: rgba(0, 0, 0, 0.245); 
+                content: '';
+                display: block;
+                height: 100%;
+                position: absolute;
+                width: 100%;
+                transition: all 0.3s;
+            }
+            .paper-card:hover .product-img::before {
+                background-color: rgba(0, 0, 0, 0.45);
+            }
+            .paper-card:hover .overlay {
+                background-color: transparent;
+            }
+            .grid li {
+                -webkit-flex: 1 1;
+                flex: 1 1;
+                -webkit-flex-basis: 33%;
+                flex-basis: 33%;
+                /*max-width: 33%;*/
+            } 
+            .bg-white {
+                background-color: #fff;
+            }
+            .card-content {
+                background-color: #fff;
+                text-align: center;
+                color: #000;
+                font-size: 16px;
+                font-weight: 500;
+            }
+            paper-card {
+                box-shadow: none;
+                display: table;
+                margin: 0 auto;
+                cursor: pointer;
+            }
+
+            #content {
+                @apply --layout-horizontal;
+                @apply --layout-center-justified;
+            }
+
+            .shop-image {
+                display: table;
+                margin: auto;
+                max-width: 600px;
+                position: relative;
+                width: 50%;
+            }
+            .shop-image .large{
+                max-width: 100%;
+                display: table;
+                height: auto;
+                margin: 0 auto;
+            }
+
+            .shop-image .thumbnail {
+                width: 100px;
+                height: auto;
+                max-width: 100%;
+            }
             
-            ul {
-              padding: 0;
-              list-style: none;
+            .shop-image::before {
+                content: "";
+                display: block;
+                /*padding-top: 100%;*/
             }
-            .item {
-              background-color: white;
+            .thumbnail-block {
+                margin: 20px 0;
             }
-            @media (max-width: 640px) {
-              :host {
-                --app-grid-columns: 1;
-              }
+            .product-size ul#itemSizes {
+                display: inline-flex;
+                max-width: 400px;
+                width: 80%;
+                float: left;
+                margin-top: 20px;
+                clear: both;
+                list-style: none;
             }
-        }
-        body {
-            overflow: hidden;
-        }
-        paper-scroll-header-panel {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background-color: var(--paper-grey-200, #eee);;
-        }
-        paper-toolbar {
-            /*background-color: var(--google-blue-500, #4285f4);*/
-            background-color: #000;
-        }
-        .app-grid {
-            margin: 0;
-        }
-        /*.overlay {
-            z-index: 1;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #000;
-            background: rgba(0,0,0,0.5);
-            height: 40px;
-            display: block;
-        }
-        .overlay .text {
-            position: absolute;
-            color: white;
-            width: 100%;
-            text-align: center;
-            font-weight: bolder;
-            margin-top:12px;
-        }*/
-        #img {
-            height: 330px;
-            width: 100%;    
-        }
-        footer {
-            height: 52px;
-            padding: 0;
-            margin: 0;
-        }
-        .footer-content {
-            box-sizing: border-box;
-            width: 200px;
-            margin: 0 auto;
-            background-color: var(--app-primary-color);
-            color: white;
-        }
-        .footer-content p {
-            text-align: right;
-        }
-        paper-icon-button {
-            --paper-icon-button-ink-color: white;
-        }
-        .spacer {
-            @apply --layout-flex;
-        }
-        .footer-content {
-            @apply --app-grid-expandible-item;   
-        }
-        paper-card.product-img::before {
-            background-color: rgba(0, 0, 0, 0.245); 
-            content: '';
-            display: block;
-            height: 100%;
-            position: absolute;
-            width: 100%;
-            transition: all 0.3s;
-        }
-        .paper-card:hover .product-img::before {
-            background-color: rgba(0, 0, 0, 0.45);
-        }
-        .paper-card:hover .overlay {
-            background-color: transparent;
-        }
-        .grid li {
-            -webkit-flex: 1 1;
-            flex: 1 1;
-            -webkit-flex-basis: 33%;
-            flex-basis: 33%;
-            /*max-width: 33%;*/
-        } 
-        .bg-white {
-            background-color: #fff;
-        }
-        .card-content {
-            background-color: #fff;
-            text-align: center;
-            color: #000;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        paper-card {
-            box-shadow: none;
-            display: table;
-            margin: 0 auto;
-            cursor: pointer;
-        }
+            .product-size ul#itemSizes li {
+                margin-bottom: 15px;
+                height: 30px;
+                min-width: 30px;
+                margin-right: 10px;
+                text-align: center;
+                border: 1px solid #1e81d6;
+                cursor: pointer;
+                padding: 3px 0;
+            }
 
-        #content {
-        @apply --layout-horizontal;
-        @apply --layout-center-justified;
-      }
+            .detail {
+                margin: 64px 32px;
+                width: 50%;
+                max-width: 400px;
+                transition: opacity 0.4s;
+            }
 
-      .shop-image {
-        position: relative;
-        margin: 64px 32px;
-        width: 50%;
-        max-width: 600px; 
-      }
-        .shop-image img {
-            height: auto;
-            max-width: 100%;
-            display: block;
-        }
-      .shop-image::before {
-        content: "";
-        display: block;
-        /*padding-top: 100%;*/
-      }
-        .product-size ul#itemSizes {
-            display: inline-flex;
-            max-width: 400px;
-            width: 80%;
-            float: left;
-            margin-top: 20px;
-            clear: both;
-            list-style: none;
-        }
-        .product-size ul#itemSizes li {
-            margin-bottom: 15px;
-            height: 30px;
-            min-width: 30px;
-            margin-right: 10px;
-            text-align: center;
-            border: 1px solid #1e81d6;
-            cursor: pointer;
-            padding: 3px 0;
-        }
+            .detail[has-content] {
+                opacity: 1;
+            }
 
-        .detail {
-            margin: 64px 32px;
-            width: 50%;
-            max-width: 400px;
-            transition: opacity 0.4s;
-        }
+            .price {
+                margin: 16px 0 40px;
+                font-size: 16px;
+                color: var(--app-secondary-color);
+            }
 
-        .detail[has-content] {
-            opacity: 1;
-        }
+            .description {
+                margin: 32px 0;
+            }
 
-        .price {
-            margin: 16px 0 40px;
-            font-size: 16px;
-            color: var(--app-secondary-color);
-        }
+            .description > h2 {
+                margin: 16px 0;
+                font-size: 13px;
+            }
 
-      .description {
-        margin: 32px 0;
-      }
+            .description > p {
+                margin: 0;
+                color: var(--app-secondary-color);
+            }
 
-      .description > h2 {
-        margin: 16px 0;
-        font-size: 13px;
-      }
+            .pickers {
+                @apply --layout-vertical;
+                border-top: 1px solid #ccc;
+            }
+            #content {
+                padding: 50px 0;
+            }
 
-      .description > p {
-        margin: 0;
-        color: var(--app-secondary-color);
-      }
+            shop-select > select {
+                font-size: 16px;
+                padding: 16px 24px 16px 70px;
+            }
+            @media (max-width: 767px) {
 
-      .pickers {
-        @apply --layout-vertical;
-        border-top: 1px solid #ccc;
-      }
+                #content {
+                    @apply --layout-vertical;
+                    @apply --layout-center;
+                }
 
-      shop-select > select {
-        font-size: 16px;
-        padding: 16px 24px 16px 70px;
-      }
-
-      @media (max-width: 767px) {
-
-        #content {
-          @apply --layout-vertical;
-          @apply --layout-center;
-        }
-
-        .shop-image {
-          margin: 0;
-          width: 80%;
-        }
-        .detail {
-          box-sizing: border-box;
-          margin: 32px 0;
-          padding: 0 24px;
-          width: 100%;
-          max-width: 600px;
-        }
-        .price {
-          font-size: inherit;
-          margin: 12px 0 32px;
-        }
-
-      }
+                .shop-image {
+                    margin: 0;
+                    width: 80%;
+                }
+                .detail {
+                    box-sizing: border-box;
+                    margin: 32px 0;
+                    padding: 0 24px;
+                    width: 100%;
+                    max-width: 600px;
+                }
+                .price {
+                    font-size: inherit;
+                    margin: 12px 0 32px;
+                }
+            }
+            .flex-horizontal {
+              @apply --layout-horizontal;
+            }
+            .flexchild {
+              @apply --layout-flex;
+            }
         </style>
         <style include="app-grid-style">
             :host {
@@ -288,6 +283,20 @@
             }
         </style>
 
+        <style include="iron-flex iron-flex-alignment">
+            .container {
+              @apply(--layout-horizontal);
+            }
+            .flexchild {
+              @apply(--layout-flex);
+            }
+            .flex2child {
+              @apply(--layout-flex-2);
+            }
+            .flex3child {
+              @apply(--layout-flex-3);
+            }
+        </style>
         <app-route
         route="{{route}}"
         pattern="/:category"
@@ -303,11 +312,15 @@
                 <paper-icon-button slot="top" icon="shopping-cart"></paper-icon-button>
             </paper-toolbar> -->
 
-
             <div slot="content" class="content">
                 <div id="content">
                     <div class="shop-image">
-                         <img src="src/images/tshirt.jpg" class="left-image" alt="logo"/>
+                        <div class="large">
+                            <img src="src/images/tshirt.jpg" class="left-image" alt="logo"/>
+                        </div>
+                        <div class="thumbnail-block">
+                            <img class="thumbnail" src="src/images/tshirt.jpg" class="left-image" alt="logo"/>
+                         </div>
                     </div>
                     <div class="detail">
                         <div class="desc-name mt-20">
@@ -344,14 +357,24 @@
                             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                             proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </div>
-                        <div class="cart-btn">
+                        <!-- <div class="cart-btn">
                             <a href="cart.html">
                                 <button class="btn btn-warning"><i class="glyphicon glyphicon-shopping-cart"></i> Add to cart</button>
                             </a>
-                        </div> 
+                        </div>  -->
+                        
+                        <paper-button toggles raised>
+                            <iron-icon icon="shopping-cart"></iron-icon>Add to cart 
+                        </paper-button>
                     </div>
 
                 </div>
+                <!-- <div class="container flex-horizontal">
+                    
+                    <div>one</div>
+                      <div class="flexchild">two (flex)</div>
+                      <div>three</div>
+                </div> -->
             </div>
 
             <!-- <div id="content">
@@ -401,14 +424,11 @@
 
         </paper-scroll-header-panel>
 
-        <!-- <app-layout> -->
-            <footer class="">
-                <div class="footer-content">
-                    <p>Powered by iOrbit – © 2018</p>
-                </div>
-
-            </footer>
-        <!-- </app-layout> -->
+        <footer class="">
+            <div class="footer-content">
+                <p>Powered by iOrbit – © 2018</p>
+            </div>
+        </footer>
 
 
         <a2w-get-products id="getproducts" on-products-retrieved="_handleProducts"></a2w-get-products>
