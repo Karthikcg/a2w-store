@@ -29,14 +29,7 @@
             }
         </style>
         <smart-config id="globals" server="139.59.34.242" port="9081" tenant="a2w"></smart-config>
-        <app-location route="{{route}}"></app-location>
-        <app-route
-        route="{{route}}"
-        pattern="/:page"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
-
-
+        
         <app-location route="{{route}}"></app-location>
         <app-route
         route="{{route}}"
@@ -71,7 +64,7 @@
             ready() {
                 super.ready();
                 this.set('route.path', '/home');
-            // this.set('route.path', '/products');
+                // this.set('route.path', '/products');
             }
 
           /*_myFunction(e) {

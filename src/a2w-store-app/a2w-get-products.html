@@ -69,7 +69,7 @@
           var postData = {};
           var postTo = {};
           postTo['FlowAdmin'] = "WallFlow";
-          search.category = "shirts";
+          search.category = category;
           search.messageType = "catalog";
           postData['search'] = search;
           postData['page'] = 1;
@@ -89,7 +89,6 @@
                   return promotes[i];
               }
           }
-
           return "Training";
       }*/
     }
