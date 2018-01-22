@@ -12,6 +12,11 @@
 <link rel="import" href="../../bower_components/iron-meta/iron-meta.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/smart-client/smart-config.html">
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
+
 <link rel="import" href="a2w-home.html">
 <link rel="import" href="a2w-global-styles.html">
 <link rel="import" href="a2w-product.html">
@@ -80,7 +85,7 @@
                     <div main-title>
                         <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
                     </div>
-                    <a href=""></a><paper-item>Login</paper-item>
+                    <paper-item  onclick="modal.open()">Login</paper-item>
                     <!-- <div slot="top" class="">Login</div> -->
                     <paper-icon-button icon="shopping-cart"></paper-icon-button>
 
@@ -101,6 +106,13 @@
             <!-- <shopping-login on-wall-loggedin="_handleLogin" name="login" route="{{subroute}}"></shopping-login> -->
             <!-- <shopping-main id="wall" name="wall" route="{{subroute}}"></shopping-main> -->
         </iron-pages>
+
+        <paper-dialog id="modal" modal>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div class="buttons">
+                <paper-button dialog-confirm autofocus>Close</paper-button>
+            </div>
+        </paper-dialog>
     </template>
 
     <script>
@@ -121,10 +133,10 @@
 
             ready() {
                 super.ready();
-                // this.set('route.path', '/home');
+                this.set('route.path', '/home');
                 // this.set('route.path', '/products');
                 // this.set('route.path', '/product-desc');
-                this.set('route.path', '/cart');
+                // this.set('route.path', '/cart');
             }
 
             _handleCategory(e) {
