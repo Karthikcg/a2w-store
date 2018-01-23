@@ -431,7 +431,7 @@
         </footer>
 
 
-        <a2w-get-products id="getproducts" on-products-retrieved="_handleProducts"></a2w-get-products>
+        <a2w-get-products id="getproductdesc" on-products-retrieved="_handleProductDesc"></a2w-get-products>
         
         <!-- <footer class="container-fluid text-center">
 
@@ -468,11 +468,10 @@
 
             ready() {
                 super.ready();
-                this.setupData(this.category)
             }
 
-            setupData(category) {
-                this.$.getproducts.getProducts(category);
+            setupProduct(product) {
+                this.$.getproductdesc.getProductDesc(product);
             }
 
             _handleProducts(event){

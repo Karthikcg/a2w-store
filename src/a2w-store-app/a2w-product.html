@@ -65,6 +65,9 @@
         .app-grid {
             margin: 0;
         }
+        .text {
+            text-align: center;
+        }
         /*.overlay {
             z-index: 1;
             position: absolute;
@@ -201,50 +204,12 @@
                         <li class="item">
                             <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
                             <div>
-                                <paper-card heading="" class="product-img" image="src/images/tshirt.jpg" alt="Category image">
+                                <paper-card heading="" class="product-img" image="src/images/tshirt.jpg" alt="product image" on-click="_myProduct">
                                     <div class="card-content">
                                         <div class="text">
-                                            <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
-                                            <paper-item class="navItem"  on-click="_myFunction">$[[product.cost]]</paper-item>
-                                        </div>
-                                    </div>
-                                </paper-card>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
-                            <div>
-                                <paper-card heading="" class="product-img" image="src/images/tshirt.jpg" alt="Category image">
-                                    <div class="card-content">
-                                        <div class="text">
-                                            <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
-                                            <paper-item class="navItem"  on-click="_myFunction">$50.20</paper-item>
-                                        </div>
-                                    </div>
-                                </paper-card>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
-                            <div>
-                                <paper-card heading="" class="product-img" image="src/images/tshirt2.jpg" alt="Category image">
-                                    <div class="card-content">
-                                        <div class="">
-                                            <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
-                                            <paper-item class="navItem"  on-click="_myFunction">$50.20</paper-item>
-                                        </div>
-                                    </div>
-                                </paper-card>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <!-- <paper-card heading="" image="[[category.imageURL]]" alt="Category image"> -->
-                            <div>
-                                <paper-card heading="" class="product-img" image="src/images/tshirt2.jpg" alt="Category image">
-                                    <div class="card-content">
-                                        <div class="">
-                                            <paper-item class="navItem"  on-click="_myFunction">Men's Tech Shell Full-Zip</paper-item> <br>
-                                            <paper-item class="navItem"  on-click="_myFunction">$50.20</paper-item>
+                                            <paper-item class="navItem" >[[product.name]]</paper-item>
+                                            <!-- <paper-item class="navItem" >[[product.summary]]</paper-item> -->
+                                            <paper-item class="navItem">$[[product.cost]]</paper-item>
                                         </div>
                                     </div>
                                 </paper-card>
@@ -304,7 +269,6 @@
 
             ready() {
                 super.ready();
-                // this.setupProduct(this.category);
             }
 
             setupProduct(category) {
@@ -315,6 +279,9 @@
                 this.products = event.detail.products;
             }
 
+            _myProduct(e) {
+                this.dispatchEvent(new CustomEvent('product-click', { detail: { 'product': e.model.product.name }}));
+            }
             /*_onLogin(event) {
                 console.log("entered");
                 this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': event.detail.user }}));

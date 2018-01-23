@@ -163,8 +163,8 @@
             _handleProduct(e) {
 
                 // alert(e.detail.category);
-                this.$.product_desc.setupProduct(e.detail.category);
-                this.set('route.path', '/products');
+                this.$.product_desc.setupProductDesc(e.detail.product);
+                this.set('route.path', '/product_desc');
                 // this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
             }
 
