@@ -88,6 +88,14 @@
                 margin: 0 auto;
                 display: table;
             }
+            .card-content {
+                padding: 16px 16px 36px;    
+            }
+            paper-button {
+                background-color: #000;
+                color: #fff;
+                margin: 5px;
+            }
         </style>
         <smart-config id="globals" server="139.59.34.242" port="9081" tenant="a2w"></smart-config>
 
@@ -99,18 +107,18 @@
         tail="{{subroute}}"></app-route>
         <!-- <app-header-layout fullbleed> -->
 
-            <app-header reveals>
-                <app-toolbar>
-                    <!-- <paper-icon-button icon="menu" onclick="drawer.toggle()"></paper-icon-button> -->
-                    <div main-title>
-                        <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
-                    </div>
-                    <paper-item on-tap="openDialog">Login</paper-item>
-                    <!-- <div slot="top" class="">Login</div> -->
-                    <paper-icon-button icon="shopping-cart"></paper-icon-button>
-                    <!-- <paper-progress value="10" indeterminate bottom-item></paper-progress> -->
-                </app-toolbar>
-            </app-header>
+        <app-header reveals>
+            <app-toolbar>
+                <!-- <paper-icon-button icon="menu" onclick="drawer.toggle()"></paper-icon-button> -->
+                <div main-title>
+                    <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
+                </div>
+                <paper-item on-tap="openDialog">Login</paper-item>
+                <!-- <div slot="top" class="">Login</div> -->
+                <paper-icon-button icon="shopping-cart"></paper-icon-button>
+                <!-- <paper-progress value="10" indeterminate bottom-item></paper-progress> -->
+            </app-toolbar>
+        </app-header>
         <!-- </app-header-layout> -->
 
 
@@ -122,12 +130,6 @@
             <!-- <shopping-login on-wall-loggedin="_handleLogin" name="login" route="{{subroute}}"></shopping-login> -->
             <!-- <shopping-main id="wall" name="wall" route="{{subroute}}"></shopping-main> -->
         </iron-pages>
-        
-<!--         <paper-dialog id="modal" >
-            <div class="buttons">
-                <paper-button dialog-confirm autofocus>Close</paper-button>
-            </div>
-        </paper-dialog> -->
 
         <simple-dialog id="modalAlert" modal role="alertdialog">
             <paper-card>
