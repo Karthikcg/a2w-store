@@ -50,7 +50,7 @@
         this.dispatchEvent(new CustomEvent("categories-retrieved", { detail: { "categories" : categories }}));
       }
 
-      getCategories() {
+      	getCategories() {
       		var search = {};
             var postData = {};
             var postTo = {};
@@ -62,7 +62,7 @@
             //TODO later
             // postData['sortBy'] = '';
             this.$.client.postSmart(postTo, postData);
-      }
+      	}
 
       /*getProducts(category) {
       		var search = {};

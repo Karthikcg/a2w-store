@@ -70,11 +70,6 @@
         pattern="/:view"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
-        <!-- <app-route
-            route="{{subroute}}"
-            pattern="/:id"
-            data="{{subrouteData}}">
-        </app-route> -->
         <!-- <app-header-layout fullbleed> -->
 
             <app-header reveals>
@@ -84,9 +79,7 @@
                         <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
                     </div>
                     <a href=""></a><paper-item on-tap="openDialog">Login</paper-item>
-                    <!-- <div slot="top" class="">Login</div> -->
                     <paper-icon-button icon="shopping-cart"></paper-icon-button>
-
                     <!-- <paper-progress value="10" indeterminate bottom-item></paper-progress> -->
                 </app-toolbar>
             </app-header>
@@ -96,7 +89,6 @@
         <iron-pages selected="[[routeData.view]]" attr-for-selected="name">
             <a2w-home on-category-click="_handleCategory" name="home" route="{{subroute}}"></a2w-home>
             <a2w-product on-product-click="_handleProduct" id="products" name="products" route="{{subroute}}"></a2w-product>
-            
             <a2w-product-desc id="product_desc" name="product_desc" route="{{subroute}}"></a2w-product-desc>
             <a2w-cart name="cart" route="{{subroute}}"></a2w-cart>
             <!-- <shopping-login on-wall-loggedin="_handleLogin" name="login" route="{{subroute}}"></shopping-login> -->
@@ -130,14 +122,10 @@
 
             ready() {
                 super.ready();
-                // this.set('route.path', '/home');
-                // this.set('route.path', '/products');
-                // this.set('route.path', '/product-desc');
                 this.set('route.path', '/home');
             }
 
             _handleCategory(e) {
-
                 // alert(e.detail.category);
                 this.$.products.setupProduct(e.detail.category);
                 this.set('route.path', '/products');
@@ -149,7 +137,6 @@
             }
 
             _handleProduct(e) {
-
                 // alert(e.detail.category);
                 this.$.product_desc.setupProductDesc(e.detail.product);
                 this.set('route.path', '/product_desc');
