@@ -15,6 +15,7 @@
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/smart-client/smart-config.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <!-- <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html"> -->
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
 <link rel="import" href="../../bower_components/workspace-components/login-smart/login-smart.html">
@@ -42,7 +43,7 @@
                 --app-primary-color: #fff;
                 --app-secondary-color: #757575;
                 --app-accent-color: #fff;
-                --paper-button-ink-color: var(--app-accent-color);
+                /*--paper-button-ink-color: var(--app-accent-color);*/
                 --paper-icon-button-ink-color: var(--app-accent-color);
                 --paper-spinner-color: var(--app-accent-color);
                 -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -55,6 +56,7 @@
             }
             paper-item, paper-icon-button {
                 color: #fff;
+                cursor: pointer;
             }
             app-header {
                 @apply --layout-fixed-top;
@@ -65,6 +67,26 @@
                 height: 10px;
                 bottom: -10px;
                 };
+            }
+            .login-form {
+                padding: 20px 60px;
+                background-color: #fff;
+            }
+            .dialog-close {
+                color: #fff;
+                position: absolute;
+                top: 5px;
+                background-color: #ef5350;
+                right: 5px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            #login_title {
+                text-align: center;
+            }
+            .buttons {
+                margin: 0 auto;
+                display: table;
             }
         </style>
         <smart-config id="globals" server="139.59.34.242" port="9081" tenant="a2w"></smart-config>
@@ -108,22 +130,30 @@
             <!-- <shopping-main id="wall" name="wall" route="{{subroute}}"></shopping-main> -->
         </iron-pages>
         
-        <paper-dialog id="modal" >
-            <login-smart on-login-success="_onLogin"></login-smart>
+<!--         <paper-dialog id="modal" >
             <div class="buttons">
                 <paper-button dialog-confirm autofocus>Close</paper-button>
             </div>
-        </paper-dialog>
+        </paper-dialog> -->
 
         <simple-dialog id="modalAlert" modal role="alertdialog">
-            <login-smart on-login-success="_onLogin"></login-smart>
-            <!-- <div class="buttons">
-                <paper-button onclick="modalDetails.toggle()">More details</paper-button>
-                <paper-button dialog-dismiss>Cancel</paper-button>
-                <paper-button dialog-confirm autofocus>Discard</paper-button>
-            </div> -->
-                <paper-item dialog-confirm autofocus>X</paper-item>
-
+            <paper-card>
+                <div class="card-content">
+                    <iron-form id="registeraccount" class="login-form">
+                        <form method="get" action="/form/handler">
+                            <h1 id="login_title">Login</h1>
+                            <paper-input id="email" label="Email" required auto-validate pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" error-message="Enter a valid email address" name="email" value="{{email}}"></paper-input>
+                          
+                            <paper-input label="Password" required auto-validate name="password" type="password" error-message="Password needs to be filled in." value="{{password}}"></paper-input>
+                            <br>
+                        </form>
+                    </iron-form>
+                    <div class="buttons">
+                        <paper-button raised class="custom black" id="loginButton" on-click="register">Submit</paper-button>
+                        <paper-button dialog-dismiss raised class="custom black" id="loginButton" on-click="register">Close </paper-button>                       
+                    </div>
+                </div>
+            </paper-card>
         </simple-dialog>
     </template>
 
