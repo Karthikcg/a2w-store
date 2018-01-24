@@ -1,0 +1,86 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/smart-client/smart-client.html">
+
+<dom-module id="a2w-get-product-desc">
+    <template>
+        <smart-client id="client" flow="WallFlow" flow-event="{{_postEvent}}" on-smart-network-error="_handleError" on-smart-error="_handleError" on-smart-response="_handleResponse" ></smart-client>
+    </template>
+    <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+
+    var categories = [];
+    var promotes = [];
+
+    class A2wGetProductDesc extends Polymer.Element {
+        static get is() { return 'a2w-get-product-desc'; }
+        static get properties() {
+            return {
+                _postEvent: {
+                    type: String,
+                    value: "GetVisitorMessages"
+                }
+            };
+        }
+
+        constructor() {
+            super();
+        }
+
+        ready() {
+            super.ready();
+        }
+
+        _handleError(e) {
+            var response = "";
+            if (e.detail.responses != undefined) {
+                response = e.detail.responses[0];
+            } else if (e.detail.error != undefined) {
+                response = e.detail.error;
+            }
+            this.dispatchEvent(new CustomEvent('product-desc-error', { detail: { 'error': response }}));
+        }
+
+        _handleResponse(e) {
+            var response = e.detail.responses[0];
+            product_desc = response["messages"];
+            this.dispatchEvent(new CustomEvent("product-desc-retrieved", { detail: { "product_desc" : product_desc }}));
+        }
+
+        getProductDesc(product) {
+            var search = {};
+            var postData = {};
+            var postTo = {};
+            postTo['FlowAdmin'] = "WallFlow";
+            search.category = product;
+            search.messageType = "catalog";
+            postData['search'] = search;
+            postData['page'] = 1;
+            postData['pageSize'] = 20;
+            //TODO later
+            // postData['sortBy'] = '';
+            this.$.client.postSmart(postTo, postData);
+        }
+
+        /*getProducts(category) {
+            var search = {};
+            var postData = {};
+            var postTo = {};
+            postTo['FlowAdmin'] = "WallFlow";
+            search.category = "shirts";
+            search.messageType = "catalog";
+            postData['search'] = search;
+            postData['page'] = 1;
+            postData['pageSize'] = 20;
+            //TODO later
+            // postData['sortBy'] = '';
+            this.$.client.postSmart(postTo, postData);
+        }*/
+
+    }
+
+    window.customElements.define(A2wGetProductDesc.is, A2wGetProductDesc);
+    </script>
+</dom-module>

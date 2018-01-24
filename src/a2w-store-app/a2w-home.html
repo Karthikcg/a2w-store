@@ -255,122 +255,14 @@
                         </li>
                     </template>
                 </ul>
-               <!--  <ul class="app-grid">
-                    <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
-                        <li class="item">
-                            <paper-card heading="" image="[[category.imageURL]]" alt="Category image">
-                            <paper-card heading="" image="src/images/img2.jpg" alt="Category image">
-                                <div class="card-content overlay">
-                                    <div class="text">
-                                        <paper-item class="navItem"  on-click="_myFunction">[[category.name]]</paper-item>
-                                    </div>
-                                </div>
-                            </paper-card>
-                        </li>
-                    </template>
-                </ul> -->
                 <footer class="">
                     <div class="footer-content">
                         <p>Powered by iOrbit</p>
                     </div>
                 </footer>
             </div>
-
         </paper-scroll-header-panel>
-        <!-- <ul class="app-grid">
-            <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
-                <li class="item">
-                    <paper-card heading="" image="[[category.imageURL]]" alt="Category image">
-                        <div class="card-content">
-                            <div class="text">
-                                <paper-item on-click="_myFunction">[[category.name]]</paper-item>
-                            </div>
-                        </div>
-                    </paper-card>
-                </li>
-            </template>
-        </ul> -->
-        <!-- <div>
-            <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
-                <section>
-                    <div class="container-fluid no-padding">
-                        <div class="col-md-6 no-padding">
-                            <div class="products">
-                                <div class="product-img">
-                                    <img src="[[category.imageURL]]" class="img-responsive" />
-                                    <div class="overlay">
-                                        <div class="text">
-                                            <span class="inner">[[category.name]]</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </template>
-        </div> -->
-<!-- <div class="card-actions">
-<paper-button>Share</paper-button>
-<paper-button>Explore!</paper-button>
-</div> -->
-        
-
-
-
-
-            <!-- <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-              <div class="card-content">
-                Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-              </div>
-              <div class="card-actions">
-                <paper-button>Share</paper-button>
-                <paper-button>Explore!</paper-button>
-              </div>
-            </paper-card> -->
-
-
-
-
-            <!-- <nav class="navbar navbar-inverse">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>                        
-                        </button>
-                        <a class="navbar-brand" href="index.html">Logo</a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="myNavbar">
-                        <ul class="nav navbar-nav">
-                            <li><a href="product.html">Categories</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="javascript:void(0)">Login</a></li>
-                            <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav> 
-        </template>-->
-                <!-- <paper-item class="shadow horizontal layout" >
-                       <div class="message-header">[[order.email]]</div>
-                       <div class="message-header flex">[[message.orderedOn]]</div>
-                       <div class="message-header">[[order.state]]</div>
-                </paper-item> -->
         <a2w-get-categories id="getcategories" on-categories-retrieved="_handleCategories"></a2w-get-categories>
-
-        <!-- <footer class="container-fluid text-center">
-            <div class="container">
-                <div class="col-md-8">
-                    
-                </div>
-                <div class="col-md-4">
-                    <p>Powered by iOrbit</p>
-                </div>
-            </div>
-        </footer> -->
     </template>
 
     <script>

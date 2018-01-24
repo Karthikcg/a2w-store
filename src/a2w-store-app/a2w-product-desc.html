@@ -22,6 +22,7 @@
 <link rel="import" href="a2w-get-products.html">
 <link rel="import" href="a2w-get-categories.html">
 <link rel="import" href="a2w-store-app.html">
+<link rel="import" href="a2w-get-product-desc.html">
 
 <dom-module id="a2w-product-desc">
 
@@ -430,20 +431,7 @@
             </div>
         </footer>
 
-
-        <a2w-get-products id="getproductdesc" on-products-retrieved="_handleProductDesc"></a2w-get-products>
-        
-        <!-- <footer class="container-fluid text-center">
-
-            <div class="container">
-                <div class="col-md-8">
-                    
-                </div>
-                <div class="col-md-4">
-                    <p>Powered by iOrbit</p>
-                </div>
-            </div>
-        </footer> -->
+        <a2w-get-product-desc id="getproductdesc" on-product-desc-retrieved="_handleProductDesc"></a2w-get-product-desc>
     </template>
 
     <script>
@@ -470,18 +458,18 @@
                 super.ready();
             }
 
-            setupProduct(product) {
+            setupProductDesc(product) {
                 this.$.getproductdesc.getProductDesc(product);
             }
 
-            _handleProducts(event){
+            _handleProductDesc(event){
                 this.products = event.detail.products;
             }
 
-            _onLogin(event) {
+            /*_onLogin(event) {
                 console.log("entered");
                 this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': event.detail.user }}));
-            }
+            }*/
         }
 
         window.customElements.define(A2WProductDesc.is, A2WProductDesc);
