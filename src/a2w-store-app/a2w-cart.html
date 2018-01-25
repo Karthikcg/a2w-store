@@ -3,12 +3,10 @@
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-styles/color.html">
-
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
-
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/app-layout/app-grid/app-grid-style.html">
 <link rel="import" href="../../bower_components/smart-client/smart-config.html">
@@ -23,22 +21,7 @@
     <template>
         <style include="a2w-global-styles">
         :host {
-            display: block;
-            /*--app-grid-columns: 2;*/
-            /*--app-grid-item-height: 100px;*/
-            /*margin: 0;
-            padding: 0;
-            font-family: 'Roboto', 'Noto', sans-serif;
-            font-weight: 100;
-            background-color: #f2f2f2;
-            width: 100%;
-            height: 100vh;
-
-            --paper-input-container-input: {
-                font-size: 18px;
-                height: 24px;
-            };*/
-            
+            display: block;            
             ul {
               padding: 0;
               list-style: none;
@@ -54,7 +37,6 @@
                 }
             }
         }
-
         paper-scroll-header-panel {
             position: absolute;
             top: 0;
@@ -64,7 +46,6 @@
             background-color: var(--paper-grey-200, #eee);;
         }
         paper-toolbar {
-            /*background-color: var(--google-blue-500, #4285f4);*/
             background-color: #000;
         }
         .app-grid {
@@ -131,7 +112,6 @@
 
             :host {
                 --app-grid-columns: 2;
-                /*--app-grid-item-height: 360px;*/
                 --app-grid-expandible-item-columns: 1;
             }
 
@@ -206,20 +186,7 @@
 
         ready() {
             super.ready();
-            this.setupData();
-        }
-
-        setupData() {
-            this.$.getcategories.getCategories();
-        }
-
-        _handleCategories(event){
-            this.categories = event.detail.categories;
-        }
-
-        _onLogin(event) {
-            console.log("entered");
-            this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': event.detail.user }}));
+            // this.setupData();
         }
     }
     window.customElements.define(A2WCart.is, A2WCart);

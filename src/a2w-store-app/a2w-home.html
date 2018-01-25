@@ -22,34 +22,19 @@
         <style include="a2w-global-styles">
         :host {
             display: block;
-            /*--app-grid-columns: 2;*/
-            /*--app-grid-item-height: 100px;*/
-            /*margin: 0;
-            padding: 0;
-            font-family: 'Roboto', 'Noto', sans-serif;
-            font-weight: 100;
-            background-color: #f2f2f2;
-            width: 100%;
-            height: 100vh;
-
-            --paper-input-container-input: {
-                font-size: 18px;
-                height: 24px;
-            };*/
-            
             ul {
-              padding: 0;
-              list-style: none;
+                padding: 0;
+                list-style: none;
             }
 
             .item {
-              background-color: white;
+                background-color: white;
             }
 
             @media (max-width: 640px) {
-              :host {
-                --app-grid-columns: 1;
-              }
+                :host {
+                    --app-grid-columns: 1;
+                }
             }
         }
 
@@ -137,100 +122,27 @@
 
             :host {
                 --app-grid-columns: 2;
-                /*--app-grid-item-height: 360px;*/
                 --app-grid-expandible-item-columns: 1;
             }
 
             ul {
-              padding: 0;
-              list-style: none;
+                padding: 0;
+                list-style: none;
             }
 
             .item {
-              background-color: white;
+                background-color: white;
             }
 
             @media (max-width: 640px) {
-              :host {
-                --app-grid-columns: 1;
-              }
-            }
-          </style>
-        <!-- <style include="a2w-global-styles">
-        :host {
-            display: block;
-            --app-grid-columns: 3;
-            --app-grid-item-height: 100px;
-            
-
-            
-            
-        }
-        </style>
-        <style type="text/css">
-          paper-scroll-header-panel {
-              position: absolute;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              left: 0;
-              background-color: var(--paper-grey-200, #eee);
-            }
-            paper-toolbar {
-              background-color: var(--google-blue-500, #4285f4);
-            }
-            .title {
-              margin: 0 8px;
-            }
-            .content {
-              padding: 8px;
-            }
-            paper-icon-button {
-              --paper-icon-button-ink-color: white;
-            }
-            .spacer {
-              @apply --layout-flex;
+                :host {
+                    --app-grid-columns: 1;
+                }
             }
         </style>
-        <style include="app-grid-style">
-
-            :host {
-              --app-grid-columns: 2;
-              --app-grid-item-height: 100px;
-            }
-
-            ul {
-              padding: 0;
-              list-style: none;
-            }
-
-            .item {
-              background-color: white;
-            }
-
-            @media (max-width: 640px) {
-              :host {
-                --app-grid-columns: 1;
-              }
-            }
-
-          </style> -->
-        <!-- <paper-header-panel class="flex">
-            <paper-toolbar slot="header">
-                <div>Hello World!</div>
-            </paper-toolbar>
-        </paper-header-panel> -->
-
-        <!-- <iron-pages selected="[[routeData.view]]" attr-for-selected="name">
-
-
-        </iron-pages> -->
-       <!--  <template> -->
 
         <paper-scroll-header-panel fixed>
-
             <paper-toolbar slot="header">
-                <!-- <paper-icon-button slot="top" icon="arrow-back"></paper-icon-button> -->
                 <div slot="top" class="spacer">
                     <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
                 </div>
@@ -270,7 +182,7 @@
      * @customElement
      * @polymer
      */
-     class A2WHome extends Polymer.Element {
+    class A2WHome extends Polymer.Element {
         static get is() { return 'a2w-home'; }
         static get properties() {
             return {
@@ -318,40 +230,9 @@
 
         _myFunction(e) {
             this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
-            // setupProduct
-            // alert(e.model.category.name);
-            // document.querySelector("main-window").set('route.path', "/products");
-            /*this.fire("requestChangeRoute", {
-                route: "/products"
-            });*/
-            // this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
-            // $.set('route.path', '/products');
-            // Load page import on demand. Show 404 page if fails
-            /*var resolvedPageUrl = this.resolveUrl('/products');
-            Polymer.importHref(
-                resolvedPageUrl,
-                null,
-                this._showPage404.bind(this),
-                true);*/
-            // console.log('You pressed button ' + e.model.category.name);
         }
     }
     window.customElements.define(A2WHome.is, A2WHome);
-  </script>
+    </script>
     
 </dom-module>
-
-    <!-- <footer class="container-fluid text-center">
-        <div class="container">
-            <div class="col-md-8">
-                
-            </div>
-            <div class="col-md-4">
-                <p>Powered by MANA GROUP – © 2018</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
- -->

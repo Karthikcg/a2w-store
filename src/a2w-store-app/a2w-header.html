@@ -11,39 +11,23 @@
 <link rel="import" href="a2w-get-categories.html">
 
 <dom-module id="a2w-header">
-
     <template>
         <style include="a2w-global-styles">
         :host {
-            display: block;
-            /*--app-grid-columns: 2;*/
-            /*--app-grid-item-height: 100px;*/
-            /*margin: 0;
-            padding: 0;
-            font-family: 'Roboto', 'Noto', sans-serif;
-            font-weight: 100;
-            background-color: #f2f2f2;
-            width: 100%;
-            height: 100vh;
-
-            --paper-input-container-input: {
-                font-size: 18px;
-                height: 24px;
-            };*/
-            
+            display: block;            
             ul {
-              padding: 0;
-              list-style: none;
+                padding: 0;
+                list-style: none;
             }
 
             .item {
-              background-color: white;
+                background-color: white;
             }
 
             @media (max-width: 640px) {
-              :host {
-                --app-grid-columns: 1;
-              }
+                :host {
+                    --app-grid-columns: 1;
+                }
             }
         }
 
@@ -123,96 +107,24 @@
 
             :host {
                 --app-grid-columns: 2;
-                /*--app-grid-item-height: 360px;*/
                 --app-grid-expandible-item-columns: 1;
             }
 
             ul {
-              padding: 0;
-              list-style: none;
+                padding: 0;
+                list-style: none;
             }
 
             .item {
-              background-color: white;
+                background-color: white;
             }
 
             @media (max-width: 640px) {
-              :host {
-                --app-grid-columns: 1;
-              }
-            }
-          </style>
-        <!-- <style include="a2w-global-styles">
-        :host {
-            display: block;
-            --app-grid-columns: 3;
-            --app-grid-item-height: 100px;
-            
-
-            
-            
-        }
-        </style>
-        <style type="text/css">
-          paper-scroll-header-panel {
-              position: absolute;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              left: 0;
-              background-color: var(--paper-grey-200, #eee);
-            }
-            paper-toolbar {
-              background-color: var(--google-blue-500, #4285f4);
-            }
-            .title {
-              margin: 0 8px;
-            }
-            .content {
-              padding: 8px;
-            }
-            paper-icon-button {
-              --paper-icon-button-ink-color: white;
-            }
-            .spacer {
-              @apply --layout-flex;
+                :host {
+                    --app-grid-columns: 1;
+                }
             }
         </style>
-        <style include="app-grid-style">
-
-            :host {
-              --app-grid-columns: 2;
-              --app-grid-item-height: 100px;
-            }
-
-            ul {
-              padding: 0;
-              list-style: none;
-            }
-
-            .item {
-              background-color: white;
-            }
-
-            @media (max-width: 640px) {
-              :host {
-                --app-grid-columns: 1;
-              }
-            }
-
-          </style> -->
-        <!-- <paper-header-panel class="flex">
-            <paper-toolbar slot="header">
-                <div>Hello World!</div>
-            </paper-toolbar>
-        </paper-header-panel> -->
-
-        <!-- <iron-pages selected="[[routeData.view]]" attr-for-selected="name">
-
-
-        </iron-pages> -->
-       <!--  <template> -->
-
         <paper-scroll-header-panel fixed>
             <paper-toolbar slot="header">
                 <!-- <paper-icon-button slot="top" icon="arrow-back"></paper-icon-button> -->
@@ -222,100 +134,7 @@
                 <div slot="top" class="">Login</div>
                 <paper-icon-button slot="top" icon="shopping-cart"></paper-icon-button>
             </paper-toolbar>
-        </paper-scroll-header-panel>            
-        <!-- <ul class="app-grid">
-            <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
-                <li class="item">
-                    <paper-card heading="" image="[[category.imageURL]]" alt="Category image">
-                        <div class="card-content">
-                            <div class="text">
-                                <paper-item on-click="_myFunction">[[category.name]]</paper-item>
-                            </div>
-                        </div>
-                    </paper-card>
-                </li>
-            </template>
-        </ul> -->
-        <!-- <div>
-            <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
-                <section>
-                    <div class="container-fluid no-padding">
-                        <div class="col-md-6 no-padding">
-                            <div class="products">
-                                <div class="product-img">
-                                    <img src="[[category.imageURL]]" class="img-responsive" />
-                                    <div class="overlay">
-                                        <div class="text">
-                                            <span class="inner">[[category.name]]</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </template>
-        </div> -->
-<!-- <div class="card-actions">
-<paper-button>Share</paper-button>
-<paper-button>Explore!</paper-button>
-</div> -->
-        
-
-
-
-
-            <!-- <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-              <div class="card-content">
-                Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-              </div>
-              <div class="card-actions">
-                <paper-button>Share</paper-button>
-                <paper-button>Explore!</paper-button>
-              </div>
-            </paper-card> -->
-
-
-
-
-            <!-- <nav class="navbar navbar-inverse">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>                        
-                        </button>
-                        <a class="navbar-brand" href="index.html">Logo</a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="myNavbar">
-                        <ul class="nav navbar-nav">
-                            <li><a href="product.html">Categories</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="javascript:void(0)">Login</a></li>
-                            <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav> 
-        </template>-->
-                <!-- <paper-item class="shadow horizontal layout" >
-                       <div class="message-header">[[order.email]]</div>
-                       <div class="message-header flex">[[message.orderedOn]]</div>
-                       <div class="message-header">[[order.state]]</div>
-                </paper-item> -->
-
-        <!-- <footer class="container-fluid text-center">
-            <div class="container">
-                <div class="col-md-8">
-                    
-                </div>
-                <div class="col-md-4">
-                    <p>Powered by iOrbit</p>
-                </div>
-            </div>
-        </footer> -->
+        </paper-scroll-header-panel>
     </template>
 
     <script>
@@ -324,35 +143,35 @@
      * @polymer
      */
     class A2WHeader extends Polymer.Element {
-      static get is() { return 'a2w-header'; }
-      static get properties() {
-        return {
-          selectedPage: {
-            type: String,
-            value: "a2w-header"
-          },
-          imageURL: {
-              type: String,
-              value: ""
-          }
-        };
-      }
+        static get is() { return 'a2w-header'; }
+        static get properties() {
+            return {
+                selectedPage: {
+                    type: String,
+                    value: "a2w-header"
+                },
+                imageURL: {
+                    type: String,
+                    value: ""
+                }
+            };
+        }
 
-      constructor() {
-          super();
-      }
+        constructor() {
+            super();
+        }
 
-      ready() {
-          super.ready();
-          this.setupData()
-      }
+        ready() {
+            super.ready();
+            this.setupData()
+        }
 
-      setupData() {
-          this.$.getcategories.getCategories();
-      }
+        setupData() {
+            this.$.getcategories.getCategories();
+        }
     }
 
     window.customElements.define(A2WHeader.is, A2WHeader);
-  </script>
+    </script>
     
 </dom-module>
