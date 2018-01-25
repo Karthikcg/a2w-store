@@ -143,7 +143,7 @@
 
             .shop-image {
                 display: table;
-                margin: auto;
+                margin: 64px 32px;
                 max-width: 600px;
                 position: relative;
                 width: 50%;
@@ -224,10 +224,6 @@
                 @apply --layout-vertical;
                 border-top: 1px solid #ccc;
             }
-            #content {
-                padding: 50px 0;
-            }
-
             shop-select > select {
                 font-size: 16px;
                 padding: 16px 24px 16px 70px;
@@ -304,15 +300,6 @@
         data="{{routeData}}"></app-route>
 
         <paper-scroll-header-panel fixed>
-            <!-- <a2w-store-app></a2w-store-app> -->
-            <!-- <paper-toolbar slot="header">
-                <div slot="top" class="spacer">
-                    <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
-                </div>
-                <div slot="top" class="">Login</div>
-                <paper-icon-button slot="top" icon="shopping-cart"></paper-icon-button>
-            </paper-toolbar> -->
-
             <div slot="content" class="content">
                 <div id="content">
                     <div class="shop-image">
@@ -330,14 +317,6 @@
                             <h1 class="desc-price">₹ 499</h1>
                         </div>
                         <div class="product-size">
-                            <!-- <label id="label2">Size:</label>
-                            <paper-radio-group selected="a" aria-labelledby="label2">
-                                <paper-radio-button name="a">XS</paper-radio-button>
-                                <paper-radio-button name="b">S</paper-radio-button>
-                                <paper-radio-button name="c">M</paper-radio-button>
-                                <paper-radio-button name="b">L</paper-radio-button>
-                                <paper-radio-button name="e">XL</paper-radio-button>
-                            </paper-radio-group> -->
                             <paper-dropdown-menu label="Select a size">
                                 <paper-listbox slot="dropdown-content" attr-for-selected="value" class="dropdown-content" selected="1">
                                     <paper-item>Select</paper-item>
@@ -358,71 +337,12 @@
                             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                             proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </div>
-                        <!-- <div class="cart-btn">
-                            <a href="cart.html">
-                                <button class="btn btn-warning"><i class="glyphicon glyphicon-shopping-cart"></i> Add to cart</button>
-                            </a>
-                        </div>  -->
-                        
                         <paper-button toggles raised>
                             <iron-icon icon="shopping-cart"></iron-icon>Add to cart 
                         </paper-button>
                     </div>
-
                 </div>
-                <!-- <div class="container flex-horizontal">
-                    
-                    <div>one</div>
-                      <div class="flexchild">two (flex)</div>
-                      <div>three</div>
-                </div> -->
             </div>
-
-            <!-- <div id="content">
-                <shop-image alt="[[item.title]]" src="[[item.largeImage]]"></shop-image>
-                <div class="detail" has-content$="[[_isDefined(item)]]">
-                    <h1>[[item.title]]</h1>
-                    <div class="price">[[_formatPrice(item.price)]]</div>
-                    <div class="pickers">
-                        <shop-select>
-                            <label id="sizeLabel" prefix>Size</label>
-                            <select id="sizeSelect" aria-labelledby="sizeLabel">
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M" selected>M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                            </select>
-                            <shop-md-decorator aria-hidden="true">
-                                <shop-underline></shop-underline>
-                            </shop-md-decorator>
-                        </shop-select>
-                        <shop-select>
-                            <label id="quantityLabel" prefix>Quantity</label>
-                            <select id="quantitySelect" aria-labelledby="quantityLabel">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <shop-md-decorator aria-hidden="true">
-                                <shop-underline></shop-underline>
-                            </shop-md-decorator>
-                        </shop-select>
-                    </div>
-                    <div class="description">
-                        <h2>Description</h2>
-                        <p id="desc"></p>
-                    </div>
-                    <shop-button responsive>
-                        <button on-click="_addToCart" aria-label="Add this item to cart">Add to Cart</button>
-                    </shop-button>
-                </div>
-            </div> -->
-
-            
-
         </paper-scroll-header-panel>
 
         <footer class="">

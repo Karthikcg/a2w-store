@@ -77,21 +77,13 @@
             width: 100%;    
         }
         footer {
-            height: 52px;
-            padding: 0;
+            height: 50px;
+            padding: 0px 60px;
             margin: 0;
         }
         .footer-content {
             box-sizing: border-box;
-            width: 200px;
-            /* padding: 6px; */
-            margin: 0 auto;
-            background-color: var(--app-primary-color);
-            color: white;
-            text-transform: uppercase;
-        }
-        .footer-content p {
-            text-align: right;
+            float: right;
         }
         paper-icon-button {
             --paper-icon-button-ink-color: white;
@@ -139,6 +131,15 @@
                     --app-grid-columns: 1;
                 }
             }
+            .card-content .text paper-item {
+                text-align: center;
+                display: table;
+                margin: 0 auto;
+                cursor: pointer;
+            }
+            .content {
+                padding-top: 64px;
+            }
         </style>
 
         <paper-scroll-header-panel fixed>
@@ -159,7 +160,7 @@
                                 <paper-card heading="" class="product-img" image="src/images/img1.jpg" alt="Category image">
                                     <div class="card-content overlay">
                                         <div class="text">
-                                            <!-- <a href$="/products/[[category.name]]" class="navItem" > --><paper-item class="navItem" on-click="_myFunction" >[[category.name]]</paper-item><!-- </a> -->
+                                            <paper-item class="navItem" on-click="_myFunction" >[[category.name]]</paper-item>
                                         </div>
                                     </div>
                                 </paper-card>
@@ -167,13 +168,15 @@
                         </li>
                     </template>
                 </ul>
-                <footer class="">
-                    <div class="footer-content">
-                        <p>Powered by iOrbit</p>
-                    </div>
-                </footer>
             </div>
         </paper-scroll-header-panel>
+
+        <footer class="">
+            <div class="footer-content">
+                <p>Powered by iOrbit – © 2018</p>
+            </div>
+        </footer>
+
         <a2w-get-categories id="getcategories" on-categories-retrieved="_handleCategories"></a2w-get-categories>
     </template>
 
@@ -205,11 +208,10 @@
                 }
             };
         }
-
         constructor() {
             super();
         }
-
+        
         ready() {
             super.ready();
             this.setupData();
@@ -234,5 +236,4 @@
     }
     window.customElements.define(A2WHome.is, A2WHome);
     </script>
-    
 </dom-module>
