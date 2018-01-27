@@ -1,0 +1,113 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/smart-client/smart-client.html">
+
+<dom-module id="a2w-addtocart">
+	<template>
+		<smart-client id="client" flow="WallFlow" flow-event="{{_postEvent}}" on-smart-network-error="_handleError" on-smart-error="_handleError" on-smart-response="_handleResponse" ></smart-client>
+	</template>
+	<script>
+	    /**
+	     * @customElement
+	     * @polymer
+	     */
+
+	    var cart = [];
+
+	    class A2wAddToCart extends Polymer.Element {
+	    	static get is() { return 'a2w-addtocart'; }
+	    	static get properties() {
+	    		return {
+	    			_postEvent: {
+	    				type: String,
+	    				value: "AddToCart"
+	    			}
+	    		};
+	    	}
+
+	    	constructor() {
+	    		super();
+	    	}
+
+	    	ready() {
+	    		super.ready();
+	    	}
+
+	    	_handleError(e) {
+	    		var response = "";
+	    		if (e.detail.responses != undefined) {
+	    			response = e.detail.responses[0];
+	    		} else if (e.detail.error != undefined) {
+	    			response = e.detail.error;
+	    		}
+	    		this.dispatchEvent(new CustomEvent('addtocart-error', { detail: { 'error': response }}));
+	    	}
+
+	    	_handleResponse(e) {
+	    		var response = e.detail.responses[0];
+	    		cart = response["messages"];
+	    		this.dispatchEvent(new CustomEvent("added-tocart", { detail: { "categories" : cart }}));
+	    	}
+
+	    	addToCart(cartName, product, cost){
+	    		console.log(cartName);
+	    		var postTo = {};
+	    		postTo['Cart'] = cartName;
+	    		var postData = {};
+
+	    		var data = {};
+	    		// data.cartName = cartName;
+	    		// data.cartName = '2a22d6fa';
+	    		data.cartItem = product;
+	    		data.price = cost;
+
+	    		postData['data'] = data;
+
+	    		postData['page'] = 1;
+	    		postData['pageSize'] = 20;
+
+	            this.$.client.postSmart(postTo, postData);
+
+	    	}
+
+	    	/*getCategories() {
+	    		var search = {};
+	    		var postData = {};
+	    		var postTo = {};
+	    		postTo['FlowAdmin'] = "WallFlow";
+	    		search.messageType = "category";
+	    		postData['search'] = search;
+	    		postData['page'] = 1;
+	    		postData['pageSize'] = 20;
+	            //TODO later
+	            // postData['sortBy'] = '';
+	            this.$.client.postSmart(postTo, postData);
+	      	}*/
+
+	      	/*getProducts(category) {
+	      		var search = {};
+	            var postData = {};
+	            var postTo = {};
+	            postTo['FlowAdmin'] = "WallFlow";
+	            search.category = "shirts";
+	            search.messageType = "catalog";
+	            postData['search'] = search;
+	            postData['page'] = 1;
+	            postData['pageSize'] = 20;
+	            //TODO later
+	            // postData['sortBy'] = '';
+	            this.$.client.postSmart(postTo, postData);
+	      	}*/
+
+	      	/*getPromoteFor(category) {
+	        	for (var i = 0; i < categories.length; i++) {
+	            	if (categories[i] == category) {
+	                  return promotes[i];
+	              	}
+	          	}
+	          return "Training";
+	      	}*/
+	    }
+
+	    window.customElements.define(A2wAddToCart.is, A2wAddToCart);
+	</script>
+</dom-module>

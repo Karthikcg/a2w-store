@@ -16,26 +16,12 @@
 <link rel="import" href="../../bower_components/workspace-components/login-smart/login-smart.html">
 <link rel="import" href="a2w-global-styles.html">
 <link rel="import" href="a2w-get-products.html">
-<!-- <link rel="import" href="a2w-get-categories.html"> -->
 
 <dom-module id="a2w-product">
     <template>        
         <style include="a2w-global-styles">
         :host {
             display: block;
-            /*--app-grid-columns: 2;*/
-            /*--app-grid-item-height: 100px;*/
-            /*margin: 0;
-            padding: 0;
-            font-family: 'Roboto', 'Noto', sans-serif;
-            font-weight: 100;
-            background-color: #f2f2f2;
-            width: 100%;
-            height: 100vh;
-            --paper-input-container-input: {
-                font-size: 18px;
-                height: 24px;
-            };*/
             
             ul {
               padding: 0;
@@ -68,25 +54,6 @@
         .text {
             text-align: center;
         }
-        /*.overlay {
-            z-index: 1;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #000;
-            background: rgba(0,0,0,0.5);
-            height: 40px;
-            display: block;
-        }
-        .overlay .text {
-            position: absolute;
-            color: white;
-            width: 100%;
-            text-align: center;
-            font-weight: bolder;
-            margin-top:12px;
-        }*/
         footer {
             height: 50px;
             padding: 0px 60px;
@@ -190,7 +157,6 @@
         
 
         <paper-scroll-header-panel fixed>
-            
             <div slot="content" class="content">
                 <ul class="app-grid grid bg-white">
                     <template is="dom-repeat" items="[[products]]" observe="#" as="product"> 
@@ -220,19 +186,7 @@
         </footer>
 
         <a2w-get-products id="getproducts" on-products-retrieved="_handleProducts"></a2w-get-products>
-        
-        
-        <!-- <footer class="container-fluid text-center">
 
-            <div class="container">
-                <div class="col-md-8">
-                    
-                </div>
-                <div class="col-md-4">
-                    <p>Powered by iOrbit</p>
-                </div>
-            </div>
-        </footer> -->
     </template>
 
     <script>
@@ -269,60 +223,10 @@
             }
 
             _myProduct(e) {
-                this.dispatchEvent(new CustomEvent('product-click', { detail: { 'product': e.model.product.name }}));
+                this.dispatchEvent(new CustomEvent('product-click', { detail: { 'product': e.model.product.name, 'category': e.model.product.category, 'description': e.model.product.description, 'imageURL': e.model.product.imageURL, 'cost': e.model.product.cost, 'summary': e.model.product.summary  }}));
             }
-            /*_onLogin(event) {
-                console.log("entered");
-                this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': event.detail.user }}));
-            }*/
         }
 
         window.customElements.define(A2WProduct.is, A2WProduct);
     </script>
-    
-
-
-
-
-
-
-
-
-
-
-    <!-- <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                        
-                </button>
-                <a class="navbar-brand" href="index.html">Logo</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="product.html">Categories</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:void(0)">Login</a></li>
-                    <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav> -->
-
-   
-
-    <!-- <footer class="container-fluid text-center">
-        <div class="container">
-            <div class="col-md-8">
-                
-            </div>
-            <div class="col-md-4">
-                <p>Powered by MANA GROUP – © 2018</p>
-            </div>
-        </div>
-    </footer> -->
 </dom-module>
-    

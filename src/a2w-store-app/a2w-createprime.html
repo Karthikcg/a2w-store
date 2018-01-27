@@ -1,0 +1,74 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/smart-client/smart-client.html">
+
+<dom-module id="a2w-createprime">
+	<template>
+		<smart-client id="client" flow="WallFlow" flow-event="{{_postEvent}}" on-smart-network-error="_handleError" on-smart-error="_handleError" on-smart-response="_handleResponse" ></smart-client>
+	</template>
+	<script>
+	    /**
+	     * @customElement
+	     * @polymer
+	     */
+
+	    class A2wCreatePrime extends Polymer.Element {
+	    	static get is() { return 'a2w-createprime'; }
+	    	static get properties() {
+	    		return {
+	    			_postEvent: {
+	    				type: String,
+	    				value: "CreatePrime"
+	    			}
+	    		};
+	    	}
+
+	    	constructor() {
+	    		super();
+	    	}
+
+	    	ready() {
+	    		super.ready();
+	    	}
+
+	    	_handleError(e) {
+	    		var response = "";
+	    		if (e.detail.responses != undefined) {
+	    			response = e.detail.responses[0];
+	    		} else if (e.detail.error != undefined) {
+	    			response = e.detail.error;
+	    		}
+	    		this.dispatchEvent(new CustomEvent('category-error', { detail: { 'error': response }}));
+	    	}
+
+	    	_handleResponse(e) {
+	    		var response = e.detail.responses[0];
+	    		categories = response["messages"];
+	    		this.dispatchEvent(new CustomEvent("cart-created", { detail: { "categories" : categories }}));
+	    	}
+
+	    	shoppingCart(cartName, product, price) {
+	    		//What need to be posted here??
+	    		var postTo = {};
+	    		postTo['FlowAdmin'] = "WallFlow";
+	    		var postData = {};
+	    		postData.create = "Cart";
+
+	    		var data = {};
+
+	    		data.cartName = cartName;
+	    		// data.cartName = 'cartname';
+	    		data.user = 'a2wadmin';
+
+	    		postData['data'] = data;
+
+	    		postData['page'] = 1;
+	    		postData['pageSize'] = 20;
+	            //TODO later
+	            // postData['sortBy'] = '';
+	            this.$.client.postSmart(postTo, postData);
+	      	}
+	    }
+
+	    window.customElements.define(A2wCreatePrime.is, A2wCreatePrime);
+	</script>
+</dom-module>

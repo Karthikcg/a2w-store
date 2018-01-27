@@ -22,6 +22,8 @@
 <link rel="import" href="a2w-get-products.html">
 <link rel="import" href="a2w-get-categories.html">
 <link rel="import" href="a2w-store-app.html">
+<link rel="import" href="a2w-createprime.html">
+<link rel="import" href="a2w-addtocart.html">
 <link rel="import" href="a2w-get-product-desc.html">
 
 <dom-module id="a2w-product-desc">
@@ -308,37 +310,30 @@
                         </div>
                         <div class="thumbnail-block">
                             <img class="thumbnail" src="src/images/tshirt.jpg" class="left-image" alt="logo"/>
-                         </div>
+                        </div>
                     </div>
                     <div class="detail">
                         <div class="desc-name mt-20">
-                            <h3 class="desc-name">Y-3 TEE</h3>
-                            <h4>SHORT SLEEVE T-SHIRT</h4>
-                            <h1 class="desc-price">₹ 499</h1>
+                            <h3 class="desc-name" >[[product]]</h3>
+                            <h4>[[summary]]</h4>
+                            <h1 class="desc-price">₹ [[cost]]</h1>
+                            <div class="product-size">
+                                <paper-dropdown-menu label="Select a size">
+                                    <paper-listbox slot="dropdown-content" attr-for-selected="value" class="dropdown-content" selected="1">
+                                        <paper-item>Select</paper-item>
+                                        <paper-item value="xs">XS</paper-item>
+                                        <paper-item value="s">S</paper-item>
+                                        <paper-item value="s">M</paper-item>
+                                        <paper-item value="l">L</paper-item>
+                                        <paper-item value="xl">XL</paper-item>
+                                    </paper-listbox>
+                                </paper-dropdown-menu>
+                                <h4>Description</h4>
+                                <p>[[description]]</p>
+                            </div>
                         </div>
-                        <div class="product-size">
-                            <paper-dropdown-menu label="Select a size">
-                                <paper-listbox slot="dropdown-content" attr-for-selected="value" class="dropdown-content" selected="1">
-                                    <paper-item>Select</paper-item>
-                                    <paper-item value="xs">XS</paper-item>
-                                    <paper-item value="s">S</paper-item>
-                                    <paper-item value="s">M</paper-item>
-                                    <paper-item value="l">L</paper-item>
-                                    <paper-item value="xl">XL</paper-item>
-                                </paper-listbox>
-                            </paper-dropdown-menu>
-                        </div>
-                        <div>
-                            <h4>Description</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </div>
-                        <paper-button toggles raised>
-                            <iron-icon icon="shopping-cart"></iron-icon>Add to cart 
+                        <paper-button toggles raised on-tap="_addToCartClick">
+                            <iron-icon icon="shopping-cart"></iron-icon> Add to cart 
                         </paper-button>
                     </div>
                 </div>
@@ -350,8 +345,9 @@
                 <p>Powered by iOrbit – © 2018</p>
             </div>
         </footer>
+        <a2w-createprime id="cart" on-cart-created="_handleCart"></a2w-createprime>
+        <a2w-addtocart id="addtocart" on-added-to-cart="_handleAddCart"></a2w-addtocart>
 
-        <a2w-get-product-desc id="getproductdesc" on-product-desc-retrieved="_handleProductDesc"></a2w-get-product-desc>
     </template>
 
     <script>
@@ -359,6 +355,9 @@
          * @customElement
          * @polymer
          */
+
+        var randomnum = '';
+
         class A2WProductDesc extends Polymer.Element {
             static get is() { return 'a2w-product-desc'; }
             static get properties() {
@@ -366,8 +365,29 @@
                     selectedPage: {
                         type: String,
                         value: "a2w-product-desc"
+                    },
+                    product: {
+                        type: String
+                    },
+                    category: {
+                        type: String
+                    },
+                    description: {
+                        type: String
+                    },
+                    imageURL: {
+                        type: String
+                    },
+                    cost: {
+                        type: String
+                    },
+                    summary: {
+                        type: String
+                    },
+                    randomnum: {
+                        type: String
                     }
-                };
+                };           
             }
 
             constructor() {
@@ -378,66 +398,35 @@
                 super.ready();
             }
 
-            setupProductDesc(product) {
-                this.$.getproductdesc.getProductDesc(product);
+            setupProductDesc(product, category, description, imageURL, cost, summary) {
+                this.product = product;
+                this.category = category;
+                this.description = description;
+                this.imageURL = imageURL;
+                this.cost = cost;
+                this.summary = summary;
             }
 
-            _handleProductDesc(event){
-                this.products = event.detail.products;
+            _addToCartClick() {
+                // console.log(this.globals);
+                this.cartName = Math.random().toString(36).substr(2,8);
+                // var sessionID = this.globals.sessionId;
+                // var cartName = randomnum+sessionID;
+                console.log(cartName);
+                this.$.cart.shoppingCart(this.cartName, this.product, this.cost);
             }
 
-            /*_onLogin(event) {
-                console.log("entered");
-                this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': event.detail.user }}));
-            }*/
+            _handleCart(e) {
+                //Need to pass some values recieved from the previous call??
+                this.$.addtocart.addToCart(this.cartName, this.product, this.cost);
+            }
+
+            _handleAddCart(e){
+                console.log("t");
+            }
         }
 
         window.customElements.define(A2WProductDesc.is, A2WProductDesc);
     </script>
     
-
-
-
-
-
-
-
-
-
-
-    <!-- <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                        
-                </button>
-                <a class="navbar-brand" href="index.html">Logo</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="product.html">Categories</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:void(0)">Login</a></li>
-                    <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav> -->
-
-   
-
-    <!-- <footer class="container-fluid text-center">
-        <div class="container">
-            <div class="col-md-8">
-                
-            </div>
-            <div class="col-md-4">
-                <p>Powered by MANA GROUP – © 2018</p>
-            </div>
-        </div>
-    </footer> -->
 </dom-module>
-    

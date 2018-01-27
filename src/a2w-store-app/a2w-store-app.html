@@ -16,10 +16,7 @@
 <link rel="import" href="../../bower_components/smart-client/smart-config.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<!-- <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html"> -->
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
-<link rel="import" href="../../bower_components/workspace-components/login-smart/login-smart.html">
-
 <link rel="import" href="a2w-home.html">
 <link rel="import" href="a2w-global-styles.html">
 <link rel="import" href="a2w-product.html">
@@ -101,55 +98,50 @@
 
         <app-location route="{{route}}" ></app-location>
         <app-route
-        route="{{route}}"
-        pattern="/:view"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
-        <!-- <app-header-layout fullbleed> -->
+            route="{{route}}"
+            pattern="/:view"
+            data="{{routeData}}"
+            tail="{{subroute}}"></app-route>
 
         <app-header reveals>
             <app-toolbar>
-                <!-- <paper-icon-button icon="menu" onclick="drawer.toggle()"></paper-icon-button> -->
                 <div main-title>
                     <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
                 </div>
-                <paper-item on-tap="openDialog">Login</paper-item>
-                <!-- <div slot="top" class="">Login</div> -->
+                <paper-item on-tap="openDialog" id="loginbutton">Login</paper-item>
+                <paper-item on-tap="logout" id="logoutbutton" hidden>Logout</paper-item>
                 <paper-icon-button icon="shopping-cart"></paper-icon-button>
-                <!-- <paper-progress value="10" indeterminate bottom-item></paper-progress> -->
             </app-toolbar>
         </app-header>
-        <!-- </app-header-layout> -->
-
 
         <iron-pages selected="[[routeData.view]]" attr-for-selected="name">
             <a2w-home on-category-click="_handleCategory" name="home" route="{{subroute}}"></a2w-home>
             <a2w-product on-product-click="_handleProduct" id="products" name="products" route="{{subroute}}"></a2w-product>
             <a2w-product-desc id="product_desc" name="product_desc" route="{{subroute}}"></a2w-product-desc>
             <a2w-cart name="cart" route="{{subroute}}"></a2w-cart>
-            <!-- <shopping-login on-wall-loggedin="_handleLogin" name="login" route="{{subroute}}"></shopping-login> -->
-            <!-- <shopping-main id="wall" name="wall" route="{{subroute}}"></shopping-main> -->
         </iron-pages>
 
         <simple-dialog id="modalAlert" modal role="alertdialog">
             <paper-card>
                 <div class="card-content">
-                    <iron-form id="registeraccount" class="login-form">
-                        <form method="get" action="/form/handler">
+                    <iron-form class="login-form">
+                        <form method="post" id="loginForm" >
+                            <div id="msg" class="message"></div>
                             <h1 id="login_title">Login</h1>
-                            <paper-input id="email" label="Email" required auto-validate pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" error-message="Enter a valid email address" name="email" value="{{email}}"></paper-input>
+                            <paper-input id="user" label="Enter User Id" required auto-validate error-message="Enter a valid User Id" name="user" ></paper-input>
                           
-                            <paper-input label="Password" required auto-validate name="password" type="password" error-message="Password needs to be filled in." value="{{password}}"></paper-input>
+                            <paper-input label="Password" required auto-validate id="password" name="password" type="password" error-message="Password needs to be filled in."></paper-input>
                             <br>
+                            <div class="buttons">
+                                <paper-button raised on-tap="_login" id="loginSubmit"  class="custom black" >Submit</paper-button>
+                                <paper-button dialog-dismiss raised class="custom black">Close </paper-button>
+                            </div>
                         </form>
                     </iron-form>
-                    <div class="buttons">
-                        <paper-button raised class="custom black" id="loginButton" on-click="register">Submit</paper-button>
-                        <paper-button dialog-dismiss raised class="custom black" id="loginButton" on-click="register">Close </paper-button>                       
-                    </div>
                 </div>
             </paper-card>
         </simple-dialog>
+        <smart-security id="security" user="{{user}}" password="{{password}}" on-smart-login-success="_onLogin" on-smart-invalid-login="_handleError" on-smart-error-login="_handleError"></smart-security>
     </template>
 
     <script>
@@ -157,27 +149,59 @@
          * @customElement
          * @polymer
          */
+
+        var user = [];
+        var cartName;
+
         class A2wStoreApp extends Polymer.Element {
             static get is() { return 'a2w-store-app'; }
             static get properties() {
                 return {
-                    prop1: {
-                        type: String,
-                        value: 'a2w-store-app'
-                    }
+                    isLoggedIn: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    user: String,
+                    password: String,
+                    cartName: String
                 };
             }
 
             ready() {
                 super.ready();
-                this.set('route.path', '/home');
+
+                console.log(this.$.globals.sessionId);
+
+                if((this.$.globals.sessionId == undefined) || (this.$.globals.sessionId === '')){
+                    this.set('route.path', '/home');
+                    this.$.loginbutton.hidden = false;
+                    this.$.logoutbutton.hidden = true;
+                } else {
+                    this.$.loginbutton.hidden = true;
+                    this.$.logoutbutton.hidden = false;
+                }
+
+                var submit = this.$.loginSubmit;
+                var formlogin = this.$.loginForm;
+                var thiselem = this;
+
+                /*this.$.loginForm.addEventListener('change', function(event) {
+                    // Validate the entire form to see if we should enable the `Submit` button.
+                    submit.disabled = !formlogin.validate();
+                });*/
+
+                this.$.loginForm.addEventListener('iron-form-submit', function(event) {
+                    thiselem._submitLogin();
+                    return false;
+                });
+
+                
             }
 
             _handleCategory(e) {
                 // alert(e.detail.category);
                 this.$.products.setupProduct(e.detail.category);
                 this.set('route.path', '/products');
-                // this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
             }
 
             openDialog() {
@@ -185,16 +209,36 @@
             }
 
             _handleProduct(e) {
-                // alert(e.detail.category);
-                this.$.product_desc.setupProductDesc(e.detail.product);
+                this.$.product_desc.setupProductDesc(e.detail.product, e.detail.category, e.detail.description, e.detail.imageURL, e.detail.cost, e.detail.summary);
                 this.set('route.path', '/product_desc');
-                // this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
             }
 
-          /*_handleLogin() {
-              this.$.wall.setupData();
-              this.set('route.path', '/wall');
-          }*/
+            _submitLogin() {
+                console.log(this.$.user.value);
+                this.$.loginForm.disabled = false;
+                this.user = this.$.user.value;
+                this.password = this.$.password.value;
+                this.$.security.loginSmart();
+            }
+
+            _login(event) {
+                this._submitLogin();
+            }
+
+            _onLogin(event) {
+                this.$.msg.innerHTML = "Successfully Loggedin ";
+                this.$.loginbutton.hidden = true;
+                this.$.logoutbutton.hidden = false;
+                this.$.user = this.user;
+                this.$.modalAlert.toggle();
+                console.log(this.$.globals.sessionId);
+                this.dispatchEvent(new CustomEvent('wall-loggedin', { detail: { 'user': this.user }}));
+                // this.fire("login-success", { "user" : this.user });
+            }
+
+            _handleError(event) {
+                this.$.msg.innerHTML = "Error in User/Password. Please try again.";
+            }
         }
 
         window.customElements.define(A2wStoreApp.is, A2wStoreApp);
