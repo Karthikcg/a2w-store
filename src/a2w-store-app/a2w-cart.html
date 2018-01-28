@@ -7,7 +7,7 @@
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-grid/app-grid-style.html">
 <link rel="import" href="../../bower_components/smart-client/smart-config.html">
 <link rel="import" href="../../bower_components/smart-client/smart-security.html">
@@ -107,11 +107,61 @@
         .paper-card:hover .overlay {
             background-color: transparent;
         }
+        .title h4 {
+            color: #212121;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 0;
+        }
+        .sub-title {
+            color: #212121;
+        }
+        .flexchild img {
+            max-width: 100%;
+            height: 120px; 
+            display: table;
+            margin: 0 auto;  
+        }
+        .flexchild h4, .flexchild h5  {
+            text-align: center;
+        }
+        .container {
+          padding-right: 15px;
+          padding-left: 15px;
+          margin-right: auto;
+          margin-left: auto;
+        }
+        @media (min-width: 768px) {
+          .container {
+            width: 750px;
+          }
+        }
+        @media (min-width: 992px) {
+          .container {
+            width: 970px;
+          }
+        }
+        @media (min-width: 1200px) {
+          .container {
+            width: 1170px;
+          }
+        }
+        .cart-details .flexchild {
+            padding: 20px 0;
+        }
+        .cart-title {
+            border-bottom: 2px solid #ddd;
+        }
+        .flexchild iron-icon {
+            margin: 0 auto;
+            display: table;
+        }
         </style>
         <style include="app-grid-style">
 
             :host {
-                --app-grid-columns: 2;
+                --app-grid-columns: 6;
+                --app-grid-gutter: 20px ;
                 --app-grid-expandible-item-columns: 1;
             }
 
@@ -130,9 +180,84 @@
               }
             }
           </style>
+
+        <custom-style>
+          <style is="custom-style">
+            .flexchild {
+                @apply --layout-flex;
+                @apply --layout-center;
+            }
+            .flex2child {
+              @apply --layout-flex-2;
+            }
+            .flex3child {
+              @apply --layout-flex-3;
+            }
+            .flex-center-justified {
+              @apply --layout-horizontal;
+              @apply --layout-center-justified;
+            }
+            .flex-center-align {
+              @apply --layout-horizontal;
+              @apply --layout-center;
+            }
+          </style>
+        </custom-style>
+
+        
         <paper-scroll-header-panel fixed>
-            <div slot="content" class="content">
-                 
+            <div slot="content" class="content">      
+                <div class="container">
+                    <div class="title">
+                        <h4>Shopping Bag</h4>
+                    </div>
+                    <div class="sub-title">
+                        <h4>Products in your Shopping Bag</h4>
+                        <p>You can place no more than 10 items in your Shopping Bag. </p>
+                    </div>
+
+                    <div class="flex-center-align cart-title">
+                        <div class="flexchild">
+                            <h4>Item</h4>
+                        </div>
+                        <div class="flexchild">
+                            <h4>First Name</h4>
+                        </div>
+                        <div class="flexchild">
+                            <h4>Details</h4>
+                        </div>
+                        <div class="flexchild">
+                            <h4>Quantity</h4>
+                        </div>
+                        <div class="flexchild">
+                            <h4>Remove item</h4>
+                        </div>
+                        <div class="flexchild">
+                            <h4>Price</h4>
+                        </div>
+                    </div>
+                    <div class="flex-center-align cart-details">
+                         <div class="flexchild">
+                            <img src="src/images/tshirt.jpg" class="left-image" alt="logo"/>
+                        </div>
+                        <div class="flexchild">
+                            <h5>Y-3 TEE</h5> 
+                        </div>
+                        <div class="flexchild">
+                            <h5>Size:XS (INT) <br>
+                             Color:Black</h5>
+                        </div>
+                        <div class="flexchild">
+                            <h5>2</h5>
+                        </div>
+                        <div class="flexchild">
+                            <iron-icon icon="delete"></iron-icon>
+                        </div>
+                        <div class="flexchild">
+                            <h5>$ 100</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         </paper-scroll-header-panel>
 
