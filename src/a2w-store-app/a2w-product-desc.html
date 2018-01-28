@@ -296,6 +296,7 @@
               @apply(--layout-flex-3);
             }
         </style>
+        <smart-config id="globals" server="139.59.34.242" port="9081" tenant="a2w"></smart-config>
         <app-route
         route="{{route}}"
         pattern="/:category"
@@ -396,6 +397,20 @@
 
             ready() {
                 super.ready();
+                var name = "sessionId=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        sessionId = c.substring(name.length, c.length);
+                    }
+                }
+                if (sessionId != null) {
+                    this.$.globals.sessionId = sessionId;
+                }
             }
 
             setupProductDesc(product, category, description, imageURL, cost, summary) {
@@ -408,8 +423,15 @@
             }
 
             _addToCartClick() {
-                // console.log(this.globals);
-                this.cartName = Math.random().toString(36).substr(2,8);
+                console.log(sessionId);
+                console.log(sessionId);
+
+                if ((cartName != null) && (cartName != undefined)) {
+                    this.cartName = cartName;                    
+                } else {
+                    this.cartName = Math.random().toString(36).substr(2,8);
+                }
+
                 // var sessionID = this.globals.sessionId;
                 // var cartName = randomnum+sessionID;
                 console.log(cartName);

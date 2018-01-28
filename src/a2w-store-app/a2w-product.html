@@ -149,12 +149,11 @@
             }
         </style>
 
+        <smart-config id="globals" server="139.59.34.242" port="9081" tenant="a2w"></smart-config>
         <app-route
         route="{{route}}"
         pattern="/:category"
         data="{{routeData}}"></app-route>
-
-        
 
         <paper-scroll-header-panel fixed>
             <div slot="content" class="content">
@@ -191,6 +190,7 @@
 
     <script>
 
+        products = [];
         /**
          * @customElement
          * @polymer
@@ -202,6 +202,19 @@
                     selectedPage: {
                         type: String,
                         value: "products"
+                    },
+                    products: {
+                        type: Array,
+                        value: [],
+                        notify: true
+                    },
+                    /*category_name: {
+                        type: String,
+                        value: ""
+                    },*/
+                    imageURL: {
+                        type: String,
+                        value: ""
                     }
                 };
             }
@@ -212,6 +225,22 @@
 
             ready() {
                 super.ready();
+                var name = "sessionId=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        sessionId = c.substring(name.length, c.length);
+                    }
+                }
+                if (sessionId != null) {
+                    this.$.globals.sessionId = sessionId;
+                }
+                this.$.getproducts.getProducts(category_name);
+                
             }
 
             setupProduct(category) {
@@ -229,4 +258,50 @@
 
         window.customElements.define(A2WProduct.is, A2WProduct);
     </script>
+    
+
+
+
+
+
+
+
+
+
+
+    <!-- <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                </button>
+                <a class="navbar-brand" href="index.html">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="product.html">Categories</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="javascript:void(0)">Login</a></li>
+                    <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+
+   
+
+    <!-- <footer class="container-fluid text-center">
+        <div class="container">
+            <div class="col-md-8">
+                
+            </div>
+            <div class="col-md-4">
+                <p>Powered by MANA GROUP – © 2018</p>
+            </div>
+        </div>
+    </footer> -->
 </dom-module>
+    

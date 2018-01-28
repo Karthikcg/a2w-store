@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/smart-client/smart-client.html">
 
-<dom-module id="a2w-createprime">
+<dom-module id="a2w-shopping-cart">
 	<template>
 		<smart-client id="client" flow="WallFlow" flow-event="{{_postEvent}}" on-smart-network-error="_handleError" on-smart-error="_handleError" on-smart-response="_handleResponse" ></smart-client>
 	</template>
@@ -13,8 +13,8 @@
 
 	    var categories = [];
 
-	    class A2wCreatePrime extends Polymer.Element {
-	    	static get is() { return 'a2w-createprime'; }
+	    class A2wShoppingCart extends Polymer.Element {
+	    	static get is() { return 'a2w-shopping-cart'; }
 	    	static get properties() {
 	    		return {
 	    			_postEvent: {
@@ -63,6 +63,6 @@
 	      	}
 	    }
 
-	    window.customElements.define(A2wCreatePrime.is, A2wCreatePrime);
+	    window.customElements.define(A2wShoppingCart.is, A2wShoppingCart);
 	</script>
 </dom-module>

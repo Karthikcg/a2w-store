@@ -14,7 +14,7 @@
 <link rel="import" href="../../bower_components/smart-client/smart-client.html">
 <link rel="import" href="../../bower_components/workspace-components/login-smart/login-smart.html">
 <link rel="import" href="a2w-global-styles.html">
-<link rel="import" href="a2w-get-categories.html">
+<link rel="import" href="a2w-getcartitems.html">
 
 <dom-module id="a2w-cart">
 
@@ -132,13 +132,7 @@
           </style>
         <paper-scroll-header-panel fixed>
             <div slot="content" class="content">
-                <paper-button raised onclick="modal.open()">Login</paper-button>
-                <paper-dialog id="modal" modal>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <div class="buttons">
-                        <paper-button dialog-confirm autofocus>Close</paper-button>
-                    </div>
-                </paper-dialog>
+                 
             </div>
         </paper-scroll-header-panel>
 
@@ -148,7 +142,7 @@
             </div>
         </footer>
         
-        <a2w-get-categories id="getcategories" on-categories-retrieved="_handleCategories"></a2w-get-categories>
+        <a2w-getcartitmes id="cartItems" on-cartitems-retrieved="_handleCartItems"></a2w-getcartitmes>
     </template>
 
     <script>
@@ -187,6 +181,14 @@
         ready() {
             super.ready();
             // this.setupData();
+        }
+
+        _handleCartItems(e) {
+            console.log(e.detail);
+        }
+
+        getCartItems(cartName) {
+            this.$.cartItems.getCartItems();
         }
     }
     window.customElements.define(A2WCart.is, A2WCart);

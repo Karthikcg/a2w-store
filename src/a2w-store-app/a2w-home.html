@@ -142,15 +142,12 @@
             }
         </style>
 
+        <smart-config id="globals" server="139.59.34.242" port="9081" tenant="a2w"></smart-config>
+        <app-route
+        route="{{route}}"
+        pattern="/:category"
+        data="{{routeData}}"></app-route>
         <paper-scroll-header-panel fixed>
-            <!-- <paper-toolbar slot="header">
-                <div slot="top" class="spacer">
-                    <img src="src/images/logo.png" class="left-image" alt="logo" height="40" width="120" />
-                </div>
-                <div slot="top" class="">Login</div>
-                <paper-icon-button slot="top" icon="shopping-cart"></paper-icon-button>
-            </paper-toolbar> -->
-
             <div slot="content" class="content">
                 <ul class="app-grid">
                     <template is="dom-repeat" items="[[categories]]" observe="#" as="category">
@@ -181,6 +178,7 @@
     </template>
 
     <script>
+    var category_name;
     /**
      * @customElement
      * @polymer
@@ -215,6 +213,20 @@
         ready() {
             super.ready();
             this.setupData();
+            var name = "sessionId=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    sessionId = c.substring(name.length, c.length);
+                }
+            }
+            if (sessionId != null) {
+                this.$.globals.sessionId = sessionId;
+            }
         }
 
         setupData() {
@@ -231,6 +243,7 @@
         }
 
         _myFunction(e) {
+            this.$.category_name = e.model.category.name;
             this.dispatchEvent(new CustomEvent('category-click', { detail: { 'category': e.model.category.name }}));
         }
     }
